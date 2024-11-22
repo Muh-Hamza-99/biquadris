@@ -1,14 +1,13 @@
-#include <vector>
 #include "subject.h"
 using namespace std;
 
 Subject::~Subject() {}
 
-void Subject::attach(Observer *o) {
+void Subject::attach(shared_ptr<Observer> o) {
     observers.emplace_back(o);
 }
 
-void Subject::detach(Observer *o) {
+void Subject::detach(shared_ptr<Observer> o) {
     for (auto it = observers.begin(); it != observers.end(); ++it) {
         if (*it == o) {
             observers.erase(it);
