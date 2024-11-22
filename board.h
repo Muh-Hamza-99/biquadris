@@ -14,6 +14,7 @@ class Board {
     public:
         Board(int width = 11, int height = 18, int score = 0, int highScore = 0, string name = "Player");
         Cell getCell(int x, int y) const;
+        void reset();
         string getName() const;
         int getWidth() const;
         int getHeight() const;

@@ -16,6 +16,8 @@ Board::Board(int width, int height, int score, int highScore, string name):
     }
 }
 
+void Board::reset() {}
+
 Cell Board::getCell(int x, int y) const { return grid.at(x).at(y); }
 string Board::getName() const { return name; }
 int Board::getWidth() const { return width; }
