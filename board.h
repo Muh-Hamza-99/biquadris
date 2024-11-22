@@ -5,11 +5,23 @@
 #include "cell.h"
 #include <string>
 #include <vector>
-#include <memory>
 
 class Board {
-    vector<shared_ptr<vector<shared_ptr<Cell>>>> grid;
+    int width, height;
+    int score, highScore;
     string name;
+    vector<vector<Cell>> grid;
+    public:
+        Board(int width = 11, int height = 18, int score = 0, int highScore = 0, string name = "Player");
+        Cell getCell(int x, int y) const;
+        string getName() const;
+        int getWidth() const;
+        int getHeight() const;
+        int getScore() const;
+        int getHighScore() const;
+        void setName(const string &name);
+        void setScore(int score);
+        void setHighScore(int highScore);
 };
 
 #endif

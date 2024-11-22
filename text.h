@@ -9,6 +9,7 @@
 class Text : public Observer {
     shared_ptr<Game> subject;
     public:
+        Text(shared_ptr<Game> subject);
         void notify() override;
 };
 
