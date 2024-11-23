@@ -12,7 +12,7 @@ bool validMove(vector<pair<int, int>> coords) {
 
 // BLOCK
 
-Block::Block(bool heavy, int rotation): heavy{heavy}, rotation{rotation} {}
+Block::Block(bool heavy): heavy{heavy} {}
 
 Block::~Block() {}
 
@@ -43,9 +43,7 @@ void Block::setHeavy(bool heavy) { this->heavy = heavy; }
 
 // IBLOCK
 
-char IBlock::getType() const { return 'I'; }
-
-void IBlock::init() {
+IBlock::IBlock(bool heavy): Block{heavy} {
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
     coords.emplace_back(2, 1);
@@ -124,11 +122,11 @@ void IBlock::rotateccw() {
     rotation = (rotation - 1) % 4;
 }
 
+char IBlock::getType() const { return 'I'; }
+
 // JBLOCK
 
-char JBlock::getType() const { return 'J'; }
-
-void JBlock::init() {
+JBlock::JBlock(bool heavy): Block{heavy} {
     coords.emplace_back(0, 0);
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
@@ -199,11 +197,11 @@ void JBlock::rotateccw() {
     rotation = (rotation - 1) % 4;
 }
 
+char JBlock::getType() const { return 'J'; }
+
 // LBLOCK
 
-char LBlock::getType() const { return 'L'; }
-
-void LBlock::init() {
+LBlock::LBlock(bool heavy): Block{heavy} {
     coords.emplace_back(2, 0);
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
@@ -274,11 +272,11 @@ void LBlock::rotateccw() {
     rotation = (rotation - 1) % 4;
 }
 
+char LBlock::getType() const { return 'L'; }
+
 // OBLOCK
 
-char OBlock::getType() const { return 'O'; }
-
-void OBlock::init() {
+OBlock::OBlock(bool heavy): Block{heavy} {
     coords.emplace_back(0, 1);
     coords.emplace_back(0, 2);
     coords.emplace_back(1, 1);
@@ -286,14 +284,13 @@ void OBlock::init() {
 }
 
 void OBlock::rotatecw() {}
-
 void OBlock::rotateccw() {}
+
+char OBlock::getType() const { return 'O'; }
 
 // SBLOCK
 
-char SBlock::getType() const { return 'S'; }
-
-void SBlock::init() {
+SBlock::SBlock(bool heavy): Block{heavy} {
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
     coords.emplace_back(1, 0);
@@ -361,11 +358,11 @@ void SBlock::rotateccw() {
     rotation = (rotation - 1) % 4;
 }
 
+char SBlock::getType() const { return 'S'; }
+
 // ZBLOCK
 
-char ZBlock::getType() const { return 'Z'; }
-
-void ZBlock::init() {
+ZBlock::ZBlock(bool heavy): Block{heavy} {
     coords.emplace_back(0, 0);
     coords.emplace_back(1, 0);
     coords.emplace_back(1, 1);
@@ -436,11 +433,11 @@ void ZBlock::rotateccw() {
     rotation = (rotation - 1) % 4;
 }
 
+char ZBlock::getType() const { return 'Z'; }
+
 // TBLOCK
 
-char TBlock::getType() const { return 'T'; }
-
-void TBlock::init() {
+TBlock::TBlock(bool heavy): Block{heavy} {
     coords.emplace_back(1, 0);
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
@@ -519,14 +516,15 @@ void TBlock::rotateccw() {
     rotation = (rotation - 1) % 4;
 }
 
+char TBlock::getType() const { return 'T'; }
+
 // ASTERIKBLOCK
 
-char AsterikBlock::getType() const { return '*'; }
-
-void AsterikBlock::init() {
+AsterikBlock::AsterikBlock(bool heavy): Block{heavy} {
     coords.emplace_back(5, 2);
 }
 
 void AsterikBlock::rotatecw() {}
-
 void AsterikBlock::rotateccw() {}
+
+char AsterikBlock::getType() const { return '*'; }

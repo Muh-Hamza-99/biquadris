@@ -9,9 +9,9 @@ class Block {
     protected:
         bool heavy;
         vector<pair<int, int>> coords; // Pairs of (x,y) coordinates
-        int rotation;
+        int rotation = 0;
     public:
-        Block(bool heavy = false, int rotation = 0);
+        Block(bool heavy = false);
         void left();
         void right();
         void down();
@@ -19,71 +19,70 @@ class Block {
         void setHeavy(bool heavy);
         virtual ~Block();
         virtual char getType() const = 0;
-        virtual void init() = 0; // To initialize starting (x,y) coordinates
         virtual void rotatecw() = 0;
         virtual void rotateccw() = 0;
 };
 
 class IBlock : public Block {
     public:
+        IBlock(bool heavy = false);
         char getType() const override;
-        void init() override;
         void rotatecw() override;
         void rotateccw() override;
 };
 
 class JBlock : public Block {
     public:
+        JBlock(bool heavy = false);
         char getType() const override;
-        void init() override;
         void rotatecw() override;
         void rotateccw() override;
 };
 
 class LBlock : public Block {
     public:
+        LBlock(bool heavy = false);
         char getType() const override;
-        void init() override;\
         void rotatecw() override;
         void rotateccw() override;
 };
 
 class OBlock : public Block {
     public:
+        OBlock(bool heavy = false);
         char getType() const override;
-        void init() override;
         void rotatecw() override;
         void rotateccw() override;
 };
 
 class SBlock : public Block {
     public:
+        SBlock(bool heavy = false);
         char getType() const override;
-        void init() override;
         void rotatecw() override;
         void rotateccw() override;
 };
 
 class ZBlock : public Block {
     public:
+        ZBlock(bool heavy = false);
         char getType() const override;
-        void init() override;
         void rotatecw() override;
         void rotateccw() override;
 };
 
 class TBlock : public Block {
     public:
+        TBlock(bool heavy = false);
         char getType() const override;
-        void init() override;
         void rotatecw() override;
         void rotateccw() override;
 };
 
 class AsterikBlock : public Block {
     public:
+        AsterikBlock(bool heavy = false);
         char getType() const override;
-        void init() override;
         void rotatecw() override;
         void rotateccw() override;
 };

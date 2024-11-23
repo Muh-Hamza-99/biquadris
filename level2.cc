@@ -25,7 +25,6 @@ shared_ptr<Block> Level2::generateBlock() {
     } else if (randomChar == 'T') {
         newBlock = make_shared<TBlock>();
     }
-    newBlock->init();
     return newBlock;
 }
 

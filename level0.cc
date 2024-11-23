@@ -36,7 +36,6 @@ shared_ptr<Block> Level0::generateBlock() {
         cerr << "Invalid block character: " << blockChar << " in " << file << endl;
         exit(1);
     }
-    newBlock->init();
     currentBlockIndex += 1;
     return newBlock;
 }
