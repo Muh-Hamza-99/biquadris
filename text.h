@@ -2,7 +2,6 @@
 #define _TEXT_H_
 
 #include "observer.h"
-#include "board.h"
 #include "game.h"
 #include <memory>
 
