@@ -20,13 +20,11 @@ void Text::notify() {
 
     for (int i = 0; i < subject->getBoard1()->getHeight(); ++i) {
         for (int j = 0; j < subject->getBoard1()->getWidth(); ++j) {
-            char c = subject->getBoard1()->getCell(i, j).getOccupied() ? '*' : ' '; 
-            cout << c;
+            cout << subject->getBoard1()->getCell(i, j).getContent();
         }
         cout << space;
         for (int j = 0; j < subject->getBoard2()->getWidth(); ++j) {
-            char c = subject->getBoard2()->getCell(i, j).getOccupied() ? '*' : ' ';;
-            cout << c;
+            cout << subject->getBoard2()->getCell(i, j).getContent();
         }
         cout << endl;
     }
