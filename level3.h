@@ -4,7 +4,9 @@
 #include "level.h"
 
 class Level3 : public Level {
+    vector<char> pool;
     public:
+        Level3();
         shared_ptr<Block> generateBlock() override;
         int getLevel() const override;
 };

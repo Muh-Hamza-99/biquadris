@@ -15,6 +15,8 @@ class Block {
         void left();
         void right();
         void down();
+        bool getHeavy() const;
+        void setHeavy(bool heavy);
         virtual ~Block();
         virtual char getType() const = 0;
         virtual void init() = 0; // To initialize starting (x,y) coordinates

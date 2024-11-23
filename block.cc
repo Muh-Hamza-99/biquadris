@@ -38,6 +38,9 @@ void Block::down() {
 
 }
 
+bool Block::getHeavy() const { return heavy; }
+void Block::setHeavy(bool heavy) { this->heavy = heavy; }
+
 // IBLOCK
 
 char IBlock::getType() const { return 'I'; }
