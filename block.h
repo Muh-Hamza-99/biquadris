@@ -17,55 +17,73 @@ class Block {
         void down();
         virtual ~Block();
         virtual char getType() const = 0;
-        virtual void init() = 0; // To initialize starting (x,y) coordinates 
+        virtual void init() = 0; // To initialize starting (x,y) coordinates
+        virtual void rotatecw() = 0;
+        virtual void rotateccw() = 0;
 };
 
 class IBlock : public Block {
     public:
         char getType() const override;
         void init() override;
+        void rotatecw() override;
+        void rotateccw() override;
 };
 
 class JBlock : public Block {
     public:
         char getType() const override;
         void init() override;
+        void rotatecw() override;
+        void rotateccw() override;
 };
 
 class LBlock : public Block {
     public:
         char getType() const override;
-        void init() override;
+        void init() override;\
+        void rotatecw() override;
+        void rotateccw() override;
 };
 
 class OBlock : public Block {
     public:
         char getType() const override;
         void init() override;
+        void rotatecw() override;
+        void rotateccw() override;
 };
 
 class SBlock : public Block {
     public:
         char getType() const override;
         void init() override;
+        void rotatecw() override;
+        void rotateccw() override;
 };
 
 class ZBlock : public Block {
     public:
         char getType() const override;
         void init() override;
+        void rotatecw() override;
+        void rotateccw() override;
 };
 
 class TBlock : public Block {
     public:
         char getType() const override;
         void init() override;
+        void rotatecw() override;
+        void rotateccw() override;
 };
 
 class AsterikBlock : public Block {
     public:
         char getType() const override;
         void init() override;
+        void rotatecw() override;
+        void rotateccw() override;
 };
 
 #endif
