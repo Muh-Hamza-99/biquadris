@@ -3,14 +3,22 @@
 
 #include "subject.h"
 #include "cell.h"
+#include "block.h"
+#include "level.h"
 #include <string>
 #include <vector>
+#include <memory>
+using namespace std;
 
 class Board {
     int width, height;
     int score, highScore;
     string name;
     vector<vector<Cell>> grid;
+    vector<shared_ptr<Block>> blocks;
+    shared_ptr<Block> currentBlock;
+    shared_ptr<Block> nextBlock;
+    shared_ptr<Level> level;
     public:
         Board(int width = 11, int height = 18, int score = 0, int highScore = 0, string name = "Player");
         Cell getCell(int x, int y) const;
