@@ -17,6 +17,7 @@ class Block {
         void left();
         void right();
         void down();
+        vector<pair<int, int>> getCoords() const;
         vector<vector<char>> getDisplayBlock() const;
         int getGeneratedLevel() const;
         bool getHeavy() const;

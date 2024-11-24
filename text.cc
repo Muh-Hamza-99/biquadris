@@ -4,7 +4,7 @@
 Text::Text(shared_ptr<Game> subject): subject{subject} {}
 
 void Text::notify() {
-    string space = "          ";
+    string space = "     ";
 
     cout << "Level:    " << subject->getBoard1()->getCurrentLevel()->getLevel();
     cout << space;
@@ -19,13 +19,13 @@ void Text::notify() {
     for (int i = 0; i < subject->getBoard2()->getWidth(); ++i) cout << '-';
     cout << endl;
 
-    for (int i = 0; i < subject->getBoard1()->getHeight(); ++i) {
-        for (int j = 0; j < subject->getBoard1()->getWidth(); ++j) {
-            cout << subject->getBoard1()->getCell(i, j).getContent();
+    for (int y = 0; y < subject->getBoard1()->getHeight(); ++y) {
+        for (int x = 0; x < subject->getBoard1()->getWidth(); ++x) {
+            cout << subject->getBoard1()->getCell(x, y).getContent();
         }
         cout << space;
-        for (int j = 0; j < subject->getBoard2()->getWidth(); ++j) {
-            cout << subject->getBoard2()->getCell(i, j).getContent();
+        for (int x = 0; x < subject->getBoard2()->getWidth(); ++x) {
+            cout << subject->getBoard2()->getCell(x, y).getContent();
         }
         cout << endl;
     }

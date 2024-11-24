@@ -6,7 +6,7 @@ class Cell {
     bool occupied;
     char content;
     public:
-        Cell(int x, int y, bool occupied = false, char content = ' ');
+        Cell(int x, int y, bool occupied = false, char content = '.');
         int getX() const;
         int getY() const;
         bool getOccupied() const;

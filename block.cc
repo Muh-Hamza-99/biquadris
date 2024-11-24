@@ -38,6 +38,7 @@ void Block::down() {
 
 }
 
+vector<pair<int, int>> Block::getCoords() const { return coords; }
 vector<vector<char>> Block::getDisplayBlock() const { return displayBlock; } 
 int Block::getGeneratedLevel() const { return generatedLevel; }
 bool Block::getHeavy() const { return heavy; }
