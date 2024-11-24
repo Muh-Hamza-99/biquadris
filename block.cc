@@ -12,7 +12,7 @@ bool validMove(vector<pair<int, int>> coords) {
 
 // BLOCK
 
-Block::Block(bool heavy): heavy{heavy} {}
+Block::Block(int generatedLevel, bool heavy): generatedLevel{generatedLevel}, heavy{heavy} {}
 
 Block::~Block() {}
 
@@ -38,12 +38,13 @@ void Block::down() {
 
 }
 
+int Block::getGeneratedLevel() const { return generatedLevel; }
 bool Block::getHeavy() const { return heavy; }
 void Block::setHeavy(bool heavy) { this->heavy = heavy; }
 
 // IBLOCK
 
-IBlock::IBlock(bool heavy): Block{heavy} {
+IBlock::IBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
     coords.emplace_back(2, 1);
@@ -126,7 +127,7 @@ char IBlock::getType() const { return 'I'; }
 
 // JBLOCK
 
-JBlock::JBlock(bool heavy): Block{heavy} {
+JBlock::JBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(0, 0);
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
@@ -201,7 +202,7 @@ char JBlock::getType() const { return 'J'; }
 
 // LBLOCK
 
-LBlock::LBlock(bool heavy): Block{heavy} {
+LBlock::LBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(2, 0);
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
@@ -276,7 +277,7 @@ char LBlock::getType() const { return 'L'; }
 
 // OBLOCK
 
-OBlock::OBlock(bool heavy): Block{heavy} {
+OBlock::OBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(0, 1);
     coords.emplace_back(0, 2);
     coords.emplace_back(1, 1);
@@ -290,7 +291,7 @@ char OBlock::getType() const { return 'O'; }
 
 // SBLOCK
 
-SBlock::SBlock(bool heavy): Block{heavy} {
+SBlock::SBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
     coords.emplace_back(1, 0);
@@ -362,7 +363,7 @@ char SBlock::getType() const { return 'S'; }
 
 // ZBLOCK
 
-ZBlock::ZBlock(bool heavy): Block{heavy} {
+ZBlock::ZBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(0, 0);
     coords.emplace_back(1, 0);
     coords.emplace_back(1, 1);
@@ -437,7 +438,7 @@ char ZBlock::getType() const { return 'Z'; }
 
 // TBLOCK
 
-TBlock::TBlock(bool heavy): Block{heavy} {
+TBlock::TBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(1, 0);
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
@@ -520,7 +521,7 @@ char TBlock::getType() const { return 'T'; }
 
 // ASTERIKBLOCK
 
-AsterikBlock::AsterikBlock(bool heavy): Block{heavy} {
+AsterikBlock::AsterikBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(5, 2);
 }
 

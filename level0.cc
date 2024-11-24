@@ -19,19 +19,19 @@ shared_ptr<Block> Level0::generateBlock() {
     char blockChar = blocks[currentBlockIndex];
     shared_ptr<Block> newBlock;
     if (blockChar == 'I') {
-        newBlock = make_shared<IBlock>();
+        newBlock = make_shared<IBlock>(0);
     } else if (blockChar == 'J') {
-        newBlock = make_shared<JBlock>();
+        newBlock = make_shared<JBlock>(0);
     } else if (blockChar == 'L') {
-        newBlock = make_shared<LBlock>();
+        newBlock = make_shared<LBlock>(0);
     } else if (blockChar == 'O') {
-        newBlock = make_shared<OBlock>();
+        newBlock = make_shared<OBlock>(0);
     } else if (blockChar == 'S') {
-         newBlock = make_shared<SBlock>();
+         newBlock = make_shared<SBlock>(0);
     } else if (blockChar == 'Z') {
-        newBlock = make_shared<ZBlock>();
+        newBlock = make_shared<ZBlock>(0);
     } else if (blockChar == 'T') {
-        newBlock = make_shared<TBlock>();
+        newBlock = make_shared<TBlock>(0);
     } else {
         cerr << "Invalid block character: " << blockChar << " in " << file << endl;
         exit(1);

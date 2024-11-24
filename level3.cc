@@ -11,19 +11,19 @@ shared_ptr<Block> Level3::generateBlock() {
     int randomChar = pool[rand() % pool.size()];
     shared_ptr<Block> newBlock;
     if (randomChar == 'I') {
-        newBlock = make_shared<IBlock>(true);
+        newBlock = make_shared<IBlock>(3, true);
     } else if (randomChar == 'J') {
-        newBlock = make_shared<JBlock>(true);
+        newBlock = make_shared<JBlock>(3, true);
     } else if (randomChar == 'L') {
-        newBlock = make_shared<LBlock>(true);
+        newBlock = make_shared<LBlock>(3, true);
     } else if (randomChar == 'O') {
-        newBlock = make_shared<OBlock>(true);
+        newBlock = make_shared<OBlock>(3, true);
     } else if (randomChar == 'S') {
-         newBlock = make_shared<SBlock>(true);
+         newBlock = make_shared<SBlock>(3, true);
     } else if (randomChar == 'Z') {
-        newBlock = make_shared<ZBlock>(true);
+        newBlock = make_shared<ZBlock>(3, true);
     } else if (randomChar == 'T') {
-        newBlock = make_shared<TBlock>(true);
+        newBlock = make_shared<TBlock>(3, true);
     }
     return newBlock;
 }
