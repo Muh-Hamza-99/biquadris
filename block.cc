@@ -1,42 +1,28 @@
 #include "block.h"
 #include <iostream>
 
-// Helper functions
-
-// Checks whether a set of coordinates is within a 11*18 boards grid
-bool withinBounds(vector<pair<int, int>> coords) {
-    for (auto coord : coords) {
-        if (coord.first < 0 || coord.first > 10 || coord.second < 0 || coord.second > 17) return false;
-    }
-    return true;
-}
-
 // BLOCK
 
 Block::Block(int generatedLevel, bool heavy): generatedLevel{generatedLevel}, heavy{heavy} {}
+Block::Block(const Block &other): generatedLevel{other.generatedLevel}, heavy{other.heavy}, coords{other.coords} {}
+Block::Block(Block &&other): generatedLevel{other.generatedLevel}, heavy{other.heavy}, coords{other.coords} {}
 
 Block::~Block() {}
 
 void Block::left() {
-    // Check if the block goes out of bounds
-    vector<pair<int, int>> newCoords { coords };
-    for (auto &coord : newCoords) { coord.first -= 1; }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
-    if (heavy) down();
+    for (auto &coord : coords) { coord.first -= 1; }
 }
 
 void Block::right() {
-    // Check if the block goes out of bounds
-    vector<pair<int, int>> newCoords { coords };
-    for (auto &coord : newCoords) { coord.first += 1; }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
-    if (heavy) down();
+    for (auto &coord : coords) { coord.first += 1; }
 }
 
 void Block::down() {
+    for (auto &coord : coords) { coord.second += 1; }
+}
 
+void Block::up() {
+    for (auto &coord : coords) { coord.second -= 1; }
 }
 
 vector<pair<int, int>> Block::getCoords() const { return coords; }
@@ -56,75 +42,68 @@ IBlock::IBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
 }
 
 void IBlock::rotatecw() {
-    vector<pair<int, int>> newCoords { coords };
     if (rotation == 0) {
-        newCoords[0].first += 2;
-        newCoords[0].second += 2;
-        newCoords[1].first += 1;
-        newCoords[1].second += 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second -= 1;
+        coords[0].first += 2;
+        coords[0].second += 2;
+        coords[1].first += 1;
+        coords[1].second += 1;
+        coords[3].first -= 1;
+        coords[3].second -= 1;
     } else if (rotation == 1) {
-        newCoords[0].first += 1;
-        newCoords[0].second -= 1;
-        newCoords[2].first -= 1;
-        newCoords[2].second += 1;
-        newCoords[3].first -= 2;
-        newCoords[3].second += 2;
+        coords[0].first += 1;
+        coords[0].second -= 1;
+        coords[2].first -= 1;
+        coords[2].second += 1;
+        coords[3].first -= 2;
+        coords[3].second += 2;
     } else if (rotation == 2) {
-        newCoords[0].first -= 2;
-        newCoords[0].second -= 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first += 1;
-        newCoords[3].second += 1;
+        coords[0].first -= 2;
+        coords[0].second -= 2;
+        coords[1].first -= 1;
+        coords[1].second -= 1;
+        coords[3].first += 1;
+        coords[3].second += 1;
     } else {
-        newCoords[0].first -= 1;
-        newCoords[0].second += 1;
-        newCoords[2].first += 1;
-        newCoords[2].second -= 1;
-        newCoords[3].first += 2;
-        newCoords[3].second -= 2;
+        coords[0].first -= 1;
+        coords[0].second += 1;
+        coords[2].first += 1;
+        coords[2].second -= 1;
+        coords[3].first += 2;
+        coords[3].second -= 2;
     }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
     rotation = (rotation + 1) % 4;
 }
 
 void IBlock::rotateccw() {
-    cout << rotation << endl;
-    vector<pair<int, int>> newCoords { coords };
     if (rotation == 0) {
-        newCoords[0].first += 1;
-        newCoords[0].second -= 1;
-        newCoords[2].first -= 1;
-        newCoords[2].second += 1;
-        newCoords[3].first -= 2;
-        newCoords[3].second += 2;
+        coords[0].first += 1;
+        coords[0].second -= 1;
+        coords[2].first -= 1;
+        coords[2].second += 1;
+        coords[3].first -= 2;
+        coords[3].second += 2;
     } else if (rotation == 1) {
-        newCoords[0].first -= 2;
-        newCoords[0].second -= 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first += 1;
-        newCoords[3].second += 1;
+        coords[0].first -= 2;
+        coords[0].second -= 2;
+        coords[1].first -= 1;
+        coords[1].second -= 1;
+        coords[3].first += 1;
+        coords[3].second += 1;
     } else if (rotation == 2) {
-        newCoords[0].first -= 1;
-        newCoords[0].second += 1;
-        newCoords[2].first += 1;
-        newCoords[2].second -= 1;
-        newCoords[3].first += 2;
-        newCoords[3].second -= 2;
+        coords[0].first -= 1;
+        coords[0].second += 1;
+        coords[2].first += 1;
+        coords[2].second -= 1;
+        coords[3].first += 2;
+        coords[3].second -= 2;
     } else {
-        newCoords[0].first += 2;
-        newCoords[0].second += 2;
-        newCoords[1].first += 1;
-        newCoords[1].second += 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second -= 1;
+        coords[0].first += 2;
+        coords[0].second += 2;
+        coords[1].first += 1;
+        coords[1].second += 1;
+        coords[3].first -= 1;
+        coords[3].second -= 1;
     }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
     rotation = (rotation - 1 + 4) % 4;
 }
 
@@ -141,66 +120,60 @@ JBlock::JBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
 }
 
 void JBlock::rotatecw() {
-    vector<pair<int, int>> newCoords { coords };
     if (rotation == 0) {
-        newCoords[0].first += 2;
-        newCoords[1].first += 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second += 1;
+        coords[0].first += 2;
+        coords[1].first += 1;
+        coords[1].second -= 1;
+        coords[3].first -= 1;
+        coords[3].second += 1;
     } else if (rotation == 1) {
-        newCoords[0].second += 2;
-        newCoords[1].first += 1;
-        newCoords[1].second += 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second -= 1;
+        coords[0].second += 2;
+        coords[1].first += 1;
+        coords[1].second += 1;
+        coords[3].first -= 1;
+        coords[3].second -= 1;
     } else if (rotation == 2) {
-        newCoords[0].first -= 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second += 1;
-        newCoords[3].first += 1;
-        newCoords[3].second -= 1;
+        coords[0].first -= 2;
+        coords[1].first -= 1;
+        coords[1].second += 1;
+        coords[3].first += 1;
+        coords[3].second -= 1;
     } else {
-        newCoords[0].second -= 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first += 1;
-        newCoords[3].second += 1;
+        coords[0].second -= 2;
+        coords[1].first -= 1;
+        coords[1].second -= 1;
+        coords[3].first += 1;
+        coords[3].second += 1;
     }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
     rotation = (rotation + 1) % 4;
 }
 
 void JBlock::rotateccw() {
-    vector<pair<int, int>> newCoords { coords };
     if (rotation == 0) {
-        newCoords[0].second += 2;
-        newCoords[1].first += 1;
-        newCoords[1].second += 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second -= 1;
+        coords[0].second += 2;
+        coords[1].first += 1;
+        coords[1].second += 1;
+        coords[3].first -= 1;
+        coords[3].second -= 1;
     } else if (rotation == 1) {
-        newCoords[0].first -= 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second += 1;
-        newCoords[3].first += 1;
-        newCoords[3].second -= 1;
+        coords[0].first -= 2;
+        coords[1].first -= 1;
+        coords[1].second += 1;
+        coords[3].first += 1;
+        coords[3].second -= 1;
     } else if (rotation == 2) {
-        newCoords[0].second -= 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first += 1;
-        newCoords[3].second += 1;
+        coords[0].second -= 2;
+        coords[1].first -= 1;
+        coords[1].second -= 1;
+        coords[3].first += 1;
+        coords[3].second += 1;
     } else {
-        newCoords[0].first += 2;
-        newCoords[1].first += 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second += 1;
+        coords[0].first += 2;
+        coords[1].first += 1;
+        coords[1].second -= 1;
+        coords[3].first -= 1;
+        coords[3].second += 1;
     }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
     rotation = (rotation - 1 + 4) % 4;
 }
 
@@ -217,66 +190,60 @@ LBlock::LBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
 }
 
 void LBlock::rotatecw() {
-    vector<pair<int, int>> newCoords { coords };
     if (rotation == 0) {
-        newCoords[0].second += 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second += 1;
-        newCoords[3].first += 1;
-        newCoords[3].second -= 1;
+        coords[0].second += 2;
+        coords[1].first -= 1;
+        coords[1].second += 1;
+        coords[3].first += 1;
+        coords[3].second -= 1;
     } else if (rotation == 1) {
-        newCoords[0].first -= 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first += 1;
-        newCoords[3].second += 1;
+        coords[0].first -= 2;
+        coords[1].first -= 1;
+        coords[1].second -= 1;
+        coords[3].first += 1;
+        coords[3].second += 1;
     } else if (rotation == 2) {
-        newCoords[0].second -= 2;
-        newCoords[1].first += 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second += 1;
+        coords[0].second -= 2;
+        coords[1].first += 1;
+        coords[1].second -= 1;
+        coords[3].first -= 1;
+        coords[3].second += 1;
     } else {
-        newCoords[0].first += 2;
-        newCoords[1].first += 1;
-        newCoords[1].second += 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second -= 1;
+        coords[0].first += 2;
+        coords[1].first += 1;
+        coords[1].second += 1;
+        coords[3].first -= 1;
+        coords[3].second -= 1;
     }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
     rotation = (rotation + 1) % 4;
 }
 
 void LBlock::rotateccw() {
-    vector<pair<int, int>> newCoords { coords };
     if (rotation == 0) {
-        newCoords[0].first -= 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first += 1;
-        newCoords[3].second += 1;
+        coords[0].first -= 2;
+        coords[1].first -= 1;
+        coords[1].second -= 1;
+        coords[3].first += 1;
+        coords[3].second += 1;
     } else if (rotation == 1) {
-        newCoords[0].second -= 2;
-        newCoords[1].first += 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second += 1;
+        coords[0].second -= 2;
+        coords[1].first += 1;
+        coords[1].second -= 1;
+        coords[3].first -= 1;
+        coords[3].second += 1;
     } else if (rotation == 2) {
-        newCoords[0].first += 2;
-        newCoords[1].first += 1;
-        newCoords[1].second += 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second -= 1;
+        coords[0].first += 2;
+        coords[1].first += 1;
+        coords[1].second += 1;
+        coords[3].first -= 1;
+        coords[3].second -= 1;
     } else {
-        newCoords[0].second += 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second += 1;
-        newCoords[3].first += 1;
-        newCoords[3].second -= 1;
+        coords[0].second += 2;
+        coords[1].first -= 1;
+        coords[1].second += 1;
+        coords[3].first += 1;
+        coords[3].second -= 1;
     }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
     rotation = (rotation - 1 + 4) % 4;
 }
 
@@ -337,34 +304,31 @@ void SBlock::rotatecw() {
 }
 
 void SBlock::rotateccw() {
-    vector<pair<int, int>> newCoords { coords };
     if (rotation == 0) {
-        newCoords[0].first += 1;
-        newCoords[0].second += 1;
-        newCoords[2].first -= 1;
-        newCoords[2].second += 1;
-        newCoords[3].first -= 2;
+        coords[0].first += 1;
+        coords[0].second += 1;
+        coords[2].first -= 1;
+        coords[2].second += 1;
+        coords[3].first -= 2;
     } else if (rotation == 1) {
-        newCoords[0].first -= 1;
-        newCoords[0].second += 1;
-        newCoords[2].first -= 1;
-        newCoords[2].second -= 1;
-        newCoords[3].second -= 2;
+        coords[0].first -= 1;
+        coords[0].second += 1;
+        coords[2].first -= 1;
+        coords[2].second -= 1;
+        coords[3].second -= 2;
     } else if (rotation == 2) {
-        newCoords[0].first -= 1;
-        newCoords[0].second -= 1;
-        newCoords[2].first += 1;
-        newCoords[2].second -= 1;
-        newCoords[3].first += 2;
+        coords[0].first -= 1;
+        coords[0].second -= 1;
+        coords[2].first += 1;
+        coords[2].second -= 1;
+        coords[3].first += 2;
     } else {
-        newCoords[0].first += 1;
-        newCoords[0].second -= 1;
-        newCoords[2].first += 1;
-        newCoords[2].second += 1;
-        newCoords[3].second += 2;
+        coords[0].first += 1;
+        coords[0].second -= 1;
+        coords[2].first += 1;
+        coords[2].second += 1;
+        coords[3].second += 2;
     }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
     rotation = (rotation - 1 + 4) % 4;
 }
 
@@ -381,66 +345,60 @@ ZBlock::ZBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
 }
 
 void ZBlock::rotatecw() {
-    vector<pair<int, int>> newCoords { coords };
     if (rotation == 0) {
-        newCoords[0].first += 2;
-        newCoords[1].first += 1;
-        newCoords[1].second += 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second += 1;
+        coords[0].first += 2;
+        coords[1].first += 1;
+        coords[1].second += 1;
+        coords[3].first -= 1;
+        coords[3].second += 1;
     } else if (rotation == 1) {
-        newCoords[0].second += 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second += 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second -= 1;
+        coords[0].second += 2;
+        coords[1].first -= 1;
+        coords[1].second += 1;
+        coords[3].first -= 1;
+        coords[3].second -= 1;
     } else if (rotation == 2) {
-        newCoords[0].first -= 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first += 1;
-        newCoords[3].second -= 1;
+        coords[0].first -= 2;
+        coords[1].first -= 1;
+        coords[1].second -= 1;
+        coords[3].first += 1;
+        coords[3].second -= 1;
     } else {
-        newCoords[0].second -= 2;
-        newCoords[1].first += 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first += 1;
-        newCoords[3].second += 1;
+        coords[0].second -= 2;
+        coords[1].first += 1;
+        coords[1].second -= 1;
+        coords[3].first += 1;
+        coords[3].second += 1;
     }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
     rotation = (rotation + 1) % 4;
 }
 
 void ZBlock::rotateccw() {
-    vector<pair<int, int>> newCoords { coords };
     if (rotation == 0) {
-        newCoords[0].second += 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second += 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second -= 1;
+        coords[0].second += 2;
+        coords[1].first -= 1;
+        coords[1].second += 1;
+        coords[3].first -= 1;
+        coords[3].second -= 1;
     } else if (rotation == 1) {
-        newCoords[0].first -= 2;
-        newCoords[1].first -= 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first += 1;
-        newCoords[3].second -= 1;
+        coords[0].first -= 2;
+        coords[1].first -= 1;
+        coords[1].second -= 1;
+        coords[3].first += 1;
+        coords[3].second -= 1;
     } else if (rotation == 2) {
-        newCoords[0].second -= 2;
-        newCoords[1].first += 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first += 1;
-        newCoords[3].second += 1;
+        coords[0].second -= 2;
+        coords[1].first += 1;
+        coords[1].second -= 1;
+        coords[3].first += 1;
+        coords[3].second += 1;
     } else {
-        newCoords[0].first += 2;
-        newCoords[1].first += 1;
-        newCoords[1].second += 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second += 1;
+        coords[0].first += 2;
+        coords[1].first += 1;
+        coords[1].second += 1;
+        coords[3].first -= 1;
+        coords[3].second += 1;
     }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
     rotation = (rotation - 1 + 4) % 4;
 }
 
@@ -457,74 +415,68 @@ TBlock::TBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
 }
 
 void TBlock::rotatecw() {
-    vector<pair<int, int>> newCoords { coords };
     if (rotation == 0) {
-        newCoords[0].first += 1;
-        newCoords[0].second += 1;
-        newCoords[1].first += 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second += 1;
+        coords[0].first += 1;
+        coords[0].second += 1;
+        coords[1].first += 1;
+        coords[1].second -= 1;
+        coords[3].first -= 1;
+        coords[3].second += 1;
     } else if (rotation == 1) {
-        newCoords[0].first -= 1;
-        newCoords[0].second += 1;
-        newCoords[1].first += 1;
-        newCoords[1].second += 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second -= 1;
+        coords[0].first -= 1;
+        coords[0].second += 1;
+        coords[1].first += 1;
+        coords[1].second += 1;
+        coords[3].first -= 1;
+        coords[3].second -= 1;
     } else if (rotation == 2) {
-        newCoords[0].first -= 1;
-        newCoords[0].second -= 1;
-        newCoords[1].first -= 1;
-        newCoords[1].second += 1;
-        newCoords[3].first += 1;
-        newCoords[3].second -= 1;
+        coords[0].first -= 1;
+        coords[0].second -= 1;
+        coords[1].first -= 1;
+        coords[1].second += 1;
+        coords[3].first += 1;
+        coords[3].second -= 1;
     } else {
-        newCoords[0].first += 1;
-        newCoords[0].second -= 1;
-        newCoords[1].first -= 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first += 1;
-        newCoords[3].second += 1;
+        coords[0].first += 1;
+        coords[0].second -= 1;
+        coords[1].first -= 1;
+        coords[1].second -= 1;
+        coords[3].first += 1;
+        coords[3].second += 1;
     }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
     rotation = (rotation + 1) % 4;
 }
 
 void TBlock::rotateccw() {
-    vector<pair<int, int>> newCoords { coords };
     if (rotation == 0) {
-        newCoords[0].first -= 1;
-        newCoords[0].second += 1;
-        newCoords[1].first += 1;
-        newCoords[1].second += 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second -= 1;
+        coords[0].first -= 1;
+        coords[0].second += 1;
+        coords[1].first += 1;
+        coords[1].second += 1;
+        coords[3].first -= 1;
+        coords[3].second -= 1;
     } else if (rotation == 1) {
-        newCoords[0].first -= 1;
-        newCoords[0].second -= 1;
-        newCoords[1].first -= 1;
-        newCoords[1].second += 1;
-        newCoords[3].first += 1;
-        newCoords[3].second -= 1;
+        coords[0].first -= 1;
+        coords[0].second -= 1;
+        coords[1].first -= 1;
+        coords[1].second += 1;
+        coords[3].first += 1;
+        coords[3].second -= 1;
     } else if (rotation == 2) {
-        newCoords[0].first += 1;
-        newCoords[0].second -= 1;
-        newCoords[1].first -= 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first += 1;
-        newCoords[3].second += 1;
+        coords[0].first += 1;
+        coords[0].second -= 1;
+        coords[1].first -= 1;
+        coords[1].second -= 1;
+        coords[3].first += 1;
+        coords[3].second += 1;
     } else {
-        newCoords[0].first += 1;
-        newCoords[0].second += 1;
-        newCoords[1].first += 1;
-        newCoords[1].second -= 1;
-        newCoords[3].first -= 1;
-        newCoords[3].second += 1;
+        coords[0].first += 1;
+        coords[0].second += 1;
+        coords[1].first += 1;
+        coords[1].second -= 1;
+        coords[3].first -= 1;
+        coords[3].second += 1;
     }
-    if (!withinBounds(newCoords)) return;
-    coords = newCoords;
     rotation = (rotation - 1 + 4) % 4;
 }
 

@@ -11,6 +11,9 @@ void Game::left() {
     currentBoard->setCell(coord.first, coord.second, false);
   }
   currentBoard->getCurrentBlock()->left();
+  if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+    currentBoard->getCurrentBlock()->right();
+  };
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
   }
@@ -23,12 +26,28 @@ void Game::right() {
     currentBoard->setCell(coord.first, coord.second, false);
   }
   currentBoard->getCurrentBlock()->right();
+  if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+    currentBoard->getCurrentBlock()->left();
+  };
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
   }
 }
 
-void Game::down() {}
+void Game::down() {
+  shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
+
+  for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
+    currentBoard->setCell(coord.first, coord.second, false);
+  }
+  currentBoard->getCurrentBlock()->down();
+  if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+    currentBoard->getCurrentBlock()->up();
+  };
+  for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
+    currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
+  }
+}
 
 void Game::rotatecw() {
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
@@ -37,6 +56,9 @@ void Game::rotatecw() {
     currentBoard->setCell(coord.first, coord.second, false);
   }
   currentBoard->getCurrentBlock()->rotatecw();
+  if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+    currentBoard->getCurrentBlock()->rotateccw();
+  };
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
   }
@@ -49,6 +71,9 @@ void Game::rotateccw() {
     currentBoard->setCell(coord.first, coord.second, false);
   }
   currentBoard->getCurrentBlock()->rotateccw();
+  if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+    currentBoard->getCurrentBlock()->rotatecw();
+  };
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
   }

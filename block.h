@@ -14,9 +14,12 @@ class Block {
         int generatedLevel;
     public:
         Block(int generatedLevel, bool heavy = false);
+        Block(const Block &other);
+        Block(Block &&other);
         void left();
         void right();
         void down();
+        void up();
         vector<pair<int, int>> getCoords() const;
         vector<vector<char>> getDisplayBlock() const;
         int getGeneratedLevel() const;

@@ -25,6 +25,20 @@ Board::Board(shared_ptr<Level> currentLevel, string name): currentLevel{currentL
 
 void Board::reset() {}
 
+bool Board::withinBounds() {
+    for (const pair<int, int> &coord : currentBlock->getCoords()) {
+        if (coord.first < 0 || coord.first > width - 1 || coord.second < 0 || coord.second > height - 1) return false;
+    }
+    return true;
+}
+
+bool Board::colliding() {
+    for (const pair<int, int> &coord : currentBlock->getCoords()) {
+        if (grid[coord.second][coord.first].getOccupied()) return true;
+    }
+    return false;
+}
+
 Cell Board::getCell(int x, int y) const { return grid.at(y).at(x); }
 string Board::getName() const { return name; }
 int Board::getWidth() const { return width; }

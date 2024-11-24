@@ -23,8 +23,10 @@ class Board {
     shared_ptr<Block> nextBlock;
     public:
         Board(shared_ptr<Level> currentLevel, string name = "Player");
-        Cell getCell(int x, int y) const;
         void reset();
+        bool withinBounds();
+        bool colliding();
+        Cell getCell(int x, int y) const;
         string getName() const;
         int getWidth() const;
         int getHeight() const;
