@@ -4,6 +4,11 @@
 #include <memory>
 #include "board.h"
 #include "game.h"
+#include "level.h"
+#include "level0.h"
+#include "level1.h"
+#include "level2.h"
+#include "level3.h"
 #include "text.h"
 using namespace std;
 
@@ -11,17 +16,14 @@ const int MIN_LEVEL = 0;
 const int MAX_LEVEL = 4;
 
 int main(int argc, char* argv[]) {
-    shared_ptr<Board> board1 { new Board() };
-    shared_ptr<Board> board2 { new Board() };
-    shared_ptr<Game> game { new Game(board1, board2) };
-    
-    shared_ptr<Text> textObserver { new Text(game) };
-    game->attach(textObserver);
-
+    bool graphics = false;
+    int startLevel = 0;
+    string scriptFile1 = "sequence1.txt";
+    string scriptFile2 = "sequence2.txt";
     for (int i = 1; i < argc; ++i) {
         string arg { argv[i] };
         if (arg == "-text") {
-            // 
+            graphics = true;
         } else if (arg == "-startlevel") {
             ++i;
             string arg2 { argv[i] };
@@ -32,7 +34,7 @@ int main(int argc, char* argv[]) {
                 cerr << "Invalid level. Please enter a level between " << MIN_LEVEL << " and " << MAX_LEVEL << endl;
                 exit(1);
             }
-            // Set level for both boards
+            startLevel = level;
         } else if (arg == "-seed") {
             ++i;
             string arg2 { argv[i] };
@@ -42,13 +44,31 @@ int main(int argc, char* argv[]) {
             // Set seed
         } else if (arg == "-scriptfile1") {
             ++i;
-            string scriptfile1 { argv[i] };
-            // Set sequence file for board 1
+            string arg2 { argv[i] };
+            scriptFile1 = arg2;
         } else if (arg == "-scriptfile2") {
             ++i;
-            string scriptfile2 { argv[i] };
-            // Set sequence file for board 2
+            string arg2 { argv[i] };
+            scriptFile2 = arg2;
         }
+    }
+    
+    shared_ptr<Level> board1Level;
+    shared_ptr<Level> board2Level;
+    if (startLevel == 0) {
+        board1Level = make_shared<Level0>(scriptFile1);
+        board2Level = make_shared<Level0>(scriptFile2);
+    } else if (startLevel == 1) {
+        board1Level = make_shared<Level1>(scriptFile1);
+        board2Level = make_shared<Level1>(scriptFile2);
+    } else if (startLevel == 2) {
+        board1Level = make_shared<Level2>(scriptFile1);
+        board2Level = make_shared<Level2>(scriptFile2);
+    } else if (startLevel == 3) {
+        board1Level = make_shared<Level3>(scriptFile1);
+        board2Level = make_shared<Level3>(scriptFile2);
+    } else if (startLevel == 4) {
+        // Complete when level 4 is defined
     }
 
     cout << "-------------------------------------" << endl;
@@ -62,6 +82,14 @@ int main(int argc, char* argv[]) {
     cin >> name2;
     cout << endl << endl;
 
+    shared_ptr<Board> board1 { new Board(board1Level, name1) };
+    shared_ptr<Board> board2 { new Board(board2Level, name2) };
+    shared_ptr<Game> game { new Game(board1, board2) };
+    shared_ptr<Text> textObserver { new Text(game) };
+    game->attach(textObserver);
+    if (graphics) {
+        // Add graphics observer
+    }
     game->render();
     
 

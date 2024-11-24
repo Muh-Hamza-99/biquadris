@@ -13,15 +13,16 @@ using namespace std;
 class Board {
     int width = 11;
     int height = 18;
-    int score, highScore;
+    int score = 0;
+    int highScore = 0;
     string name;
     vector<vector<Cell>> grid;
     vector<shared_ptr<Block>> blocks;
+    shared_ptr<Level> level;
     shared_ptr<Block> currentBlock;
     shared_ptr<Block> nextBlock;
-    shared_ptr<Level> level;
     public:
-        Board(int score = 0, int highScore = 0, string name = "Player");
+        Board(shared_ptr<Level> level, string name = "Player");
         Cell getCell(int x, int y) const;
         void reset();
         string getName() const;

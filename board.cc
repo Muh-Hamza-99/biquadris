@@ -3,8 +3,7 @@
 #include <string>
 using namespace std;
 
-Board::Board(int score, int highScore, string name):
-    score{score}, highScore{highScore}, name{name} {
+Board::Board(shared_ptr<Level> level, string name): level{level}, name{name} {
     // Prepopulating the grid with cells
     for (int i = 0; i < height; ++i) {
         vector<Cell> row;
@@ -14,6 +13,8 @@ Board::Board(int score, int highScore, string name):
             grid.at(i).emplace_back(c);
         }
     }
+    currentBlock = level->generateBlock();
+    nextBlock = level->generateBlock();
 }
 
 void Board::reset() {}
