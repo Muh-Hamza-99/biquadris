@@ -37,3 +37,7 @@ shared_ptr<Block> Board::getNextBlock() const { return nextBlock; }
 void Board::setName(const string &name) { this->name = name; }
 void Board::setScore(int score) { this->score = score; }
 void Board::setHighScore(int highScore) { this->highScore = highScore; }
+void Board::setCell(int x, int y, bool occupied, char content) {
+    grid[y][x].setOccupied(occupied);
+    grid[y][x].setContent(content);
+}

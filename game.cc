@@ -4,6 +4,38 @@ Game::Game(shared_ptr<Board> board1, shared_ptr<Board> board2): board1{board1}, 
 
 void Game::render() { notifyObservers(); }
 
+void Game::left() {
+  shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
+
+  for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
+    currentBoard->setCell(coord.first, coord.second, false);
+  }
+  currentBoard->getCurrentBlock()->left();
+  for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
+    currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
+  }
+}
+
+void Game::right() {
+  shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
+
+  for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
+    currentBoard->setCell(coord.first, coord.second, false);
+  }
+  currentBoard->getCurrentBlock()->right();
+  for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
+    currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
+  }
+}
+
+void Game::down() {}
+
+void Game::rotatecw() {}
+
+void Game::rotateccw() {}
+
+void Game::drop() {}
+
 shared_ptr<Board> Game::getBoard1() const { return board1; }
 shared_ptr<Board> Game::getBoard2() const { return board2; }
 

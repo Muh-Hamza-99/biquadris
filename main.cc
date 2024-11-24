@@ -91,23 +91,32 @@ int main(int argc, char* argv[]) {
         // Add graphics observer
     }
     game->render();
-    
 
     while (true) {
+        if (game->checkPlayer1Turn()) {
+            cout << name1 << "'s turn: ";
+        } else {
+            cout << name2 << "'s turn: ";
+        }
+
         string command;
         cin >> command;
 
         if (command == "left") {
+            game->left();
             game->render();
         } else if (command == "right") {
+            game->right();
             game->render();
         } else if (command == "down") {
+            game->down();
             game->render();
         } else if (command == "clockwise") {
             game->render();
         } else if (command == "counterclockwise") {
             game->render();
         } else if (command == "drop") {
+            game->drop();
             game->render();            
         } else if (command == "levelup") {
             cout << "Game level increased to X" << endl;

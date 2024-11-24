@@ -36,6 +36,7 @@ class Board {
         void setName(const string &name);
         void setScore(int score);
         void setHighScore(int highScore);
+        void setCell(int x, int y, bool occupied, char content = '.');
 };
 
 #endif
