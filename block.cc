@@ -92,6 +92,7 @@ void IBlock::rotatecw() {
 }
 
 void IBlock::rotateccw() {
+    cout << rotation << endl;
     vector<pair<int, int>> newCoords { coords };
     if (rotation == 0) {
         newCoords[0].first += 1;
@@ -124,7 +125,7 @@ void IBlock::rotateccw() {
     }
     if (!withinBounds(newCoords)) return;
     coords = newCoords;
-    rotation = (rotation - 1) % 4;
+    rotation = (rotation - 1 + 4) % 4;
 }
 
 char IBlock::getType() const { return 'I'; }
@@ -200,7 +201,7 @@ void JBlock::rotateccw() {
     }
     if (!withinBounds(newCoords)) return;
     coords = newCoords;
-    rotation = (rotation - 1) % 4;
+    rotation = (rotation - 1 + 4) % 4;
 }
 
 char JBlock::getType() const { return 'J'; }
@@ -276,7 +277,7 @@ void LBlock::rotateccw() {
     }
     if (!withinBounds(newCoords)) return;
     coords = newCoords;
-    rotation = (rotation - 1) % 4;
+    rotation = (rotation - 1 + 4) % 4;
 }
 
 char LBlock::getType() const { return 'L'; }
@@ -350,8 +351,8 @@ void SBlock::rotateccw() {
         newCoords[2].second -= 1;
         newCoords[3].second -= 2;
     } else if (rotation == 2) {
-        newCoords[0].first += 1;
-        newCoords[0].second += 1;
+        newCoords[0].first -= 1;
+        newCoords[0].second -= 1;
         newCoords[2].first += 1;
         newCoords[2].second -= 1;
         newCoords[3].first += 2;
@@ -364,7 +365,7 @@ void SBlock::rotateccw() {
     }
     if (!withinBounds(newCoords)) return;
     coords = newCoords;
-    rotation = (rotation - 1) % 4;
+    rotation = (rotation - 1 + 4) % 4;
 }
 
 char SBlock::getType() const { return 'S'; }
@@ -440,7 +441,7 @@ void ZBlock::rotateccw() {
     }
     if (!withinBounds(newCoords)) return;
     coords = newCoords;
-    rotation = (rotation - 1) % 4;
+    rotation = (rotation - 1 + 4) % 4;
 }
 
 char ZBlock::getType() const { return 'Z'; }
@@ -506,7 +507,7 @@ void TBlock::rotateccw() {
         newCoords[1].first -= 1;
         newCoords[1].second += 1;
         newCoords[3].first += 1;
-        newCoords[3].second += 1;
+        newCoords[3].second -= 1;
     } else if (rotation == 2) {
         newCoords[0].first += 1;
         newCoords[0].second -= 1;
@@ -524,7 +525,7 @@ void TBlock::rotateccw() {
     }
     if (!withinBounds(newCoords)) return;
     coords = newCoords;
-    rotation = (rotation - 1) % 4;
+    rotation = (rotation - 1 + 4) % 4;
 }
 
 char TBlock::getType() const { return 'T'; }
