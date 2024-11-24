@@ -101,6 +101,9 @@ void Game::drop() {
       continue;
     }
   }
+
+  currentBoard->endTurn();
+  player1Turn = !player1Turn;
 }
 
 shared_ptr<Board> Game::getBoard1() const { return board1; }

@@ -39,6 +39,18 @@ bool Board::colliding() {
     return false;
 }
 
+void Board::endTurn() {
+    blocks.emplace_back(currentBlock);
+    currentBlock = nextBlock;
+    nextBlock = currentLevel->generateBlock();
+
+    vector<pair<int, int>> currentBlockCoords = currentBlock->getCoords();
+    for (const pair<int, int> &coord : currentBlockCoords) {
+        grid[coord.second][coord.first].setOccupied(true);
+        grid[coord.second][coord.first].setContent(currentBlock->getType());
+    }
+}
+
 Cell Board::getCell(int x, int y) const { return grid.at(y).at(x); }
 string Board::getName() const { return name; }
 int Board::getWidth() const { return width; }

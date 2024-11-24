@@ -26,6 +26,7 @@ class Board {
         void reset();
         bool withinBounds();
         bool colliding();
+        void endTurn();
         Cell getCell(int x, int y) const;
         string getName() const;
         int getWidth() const;
