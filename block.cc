@@ -411,7 +411,7 @@ TBlock::TBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
     coords.emplace_back(2, 1);
-    displayBlock = {{'T', 'T', 'T', ' '}, {' ', 'T', ' ', ' '}};
+    displayBlock = {{' ', 'T', ' ', ' '}, {'T', 'T', 'T', ' '}};
 }
 
 void TBlock::rotatecw() {
