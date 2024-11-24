@@ -18,11 +18,11 @@ class Board {
     string name;
     vector<vector<Cell>> grid;
     vector<shared_ptr<Block>> blocks;
-    shared_ptr<Level> level;
+    shared_ptr<Level> currentLevel;
     shared_ptr<Block> currentBlock;
     shared_ptr<Block> nextBlock;
     public:
-        Board(shared_ptr<Level> level, string name = "Player");
+        Board(shared_ptr<Level> currentLevel, string name = "Player");
         Cell getCell(int x, int y) const;
         void reset();
         string getName() const;
@@ -30,6 +30,9 @@ class Board {
         int getHeight() const;
         int getScore() const;
         int getHighScore() const;
+        shared_ptr<Level> getCurrentLevel() const;
+        shared_ptr<Block> getCurrentBlock() const;
+        shared_ptr<Block> getNextBlock() const;
         void setName(const string &name);
         void setScore(int score);
         void setHighScore(int highScore);
