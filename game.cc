@@ -79,7 +79,29 @@ void Game::rotateccw() {
   }
 }
 
-void Game::drop() {}
+void Game::drop() {
+  shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
+
+  vector<pair<int, int>> previousCurrentBlockCoords = currentBoard->getCurrentBlock()->getCoords();
+  vector<pair<int, int>> currentCurrentBlockCoords = currentBoard->getCurrentBlock()->getCoords();
+  while (true) {
+    down();
+    previousCurrentBlockCoords = currentCurrentBlockCoords;
+    currentCurrentBlockCoords = currentBoard->getCurrentBlock()->getCoords();
+    bool sameCoords = true;
+    for (int i = 0; i < static_cast<int>(currentCurrentBlockCoords.size()); i++) {
+      if (currentCurrentBlockCoords[i].first != previousCurrentBlockCoords[i].first ||
+          currentCurrentBlockCoords[i].second != previousCurrentBlockCoords[i].second) {
+        sameCoords = false;
+      }
+    }
+    if (sameCoords) {
+      break;
+    } else {
+      continue;
+    }
+  }
+}
 
 shared_ptr<Board> Game::getBoard1() const { return board1; }
 shared_ptr<Board> Game::getBoard2() const { return board2; }
