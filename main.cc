@@ -112,8 +112,10 @@ int main(int argc, char* argv[]) {
             game->down();
             game->render();
         } else if (command == "clockwise") {
+            game->rotatecw();
             game->render();
         } else if (command == "counterclockwise") {
+            game->rotateccw();
             game->render();
         } else if (command == "drop") {
             game->drop();

@@ -30,9 +30,29 @@ void Game::right() {
 
 void Game::down() {}
 
-void Game::rotatecw() {}
+void Game::rotatecw() {
+  shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
-void Game::rotateccw() {}
+  for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
+    currentBoard->setCell(coord.first, coord.second, false);
+  }
+  currentBoard->getCurrentBlock()->rotatecw();
+  for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
+    currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
+  }
+}
+
+void Game::rotateccw() {
+  shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
+
+  for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
+    currentBoard->setCell(coord.first, coord.second, false);
+  }
+  currentBoard->getCurrentBlock()->rotateccw();
+  for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
+    currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
+  }
+}
 
 void Game::drop() {}
 
