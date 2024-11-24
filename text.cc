@@ -14,9 +14,10 @@ void Text::notify() {
     cout << space;
     cout << "Score:    " << subject->getBoard2()->getScore() << endl;
 
-    cout << "-----------";
+    for (int i = 0; i < subject->getBoard1()->getWidth(); ++i) cout << '-';
     cout << space;
-    cout << "-----------" << endl;
+    for (int i = 0; i < subject->getBoard2()->getWidth(); ++i) cout << '-';
+    cout << endl;
 
     for (int i = 0; i < subject->getBoard1()->getHeight(); ++i) {
         for (int j = 0; j < subject->getBoard1()->getWidth(); ++j) {
@@ -29,9 +30,10 @@ void Text::notify() {
         cout << endl;
     }
 
-    cout << "-----------";
+    for (int i = 0; i < subject->getBoard1()->getWidth(); ++i) cout << '-';
     cout << space;
-    cout << "-----------" << endl;
+    for (int i = 0; i < subject->getBoard2()->getWidth(); ++i) cout << '-';
+    cout << endl;
 
     cout << "Next:      ";
     cout << space;

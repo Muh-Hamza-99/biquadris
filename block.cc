@@ -38,6 +38,7 @@ void Block::down() {
 
 }
 
+vector<vector<char>> Block::getDisplayBlock() const { return displayBlock; } 
 int Block::getGeneratedLevel() const { return generatedLevel; }
 bool Block::getHeavy() const { return heavy; }
 void Block::setHeavy(bool heavy) { this->heavy = heavy; }
@@ -49,6 +50,7 @@ IBlock::IBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(1, 1);
     coords.emplace_back(2, 1);
     coords.emplace_back(3, 1);
+    displayBlock = {{' ', ' ', ' ', ' '}, {'I', 'I', 'I', 'I'}};
 }
 
 void IBlock::rotatecw() {
@@ -132,6 +134,7 @@ JBlock::JBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
     coords.emplace_back(2, 1);
+    displayBlock = {{'J', ' ', ' ', ' '}, {'J', 'J', 'J', ' '}};
 }
 
 void JBlock::rotatecw() {
@@ -207,6 +210,7 @@ LBlock::LBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
     coords.emplace_back(2, 1);
+    displayBlock = {{' ', ' ', 'L', ' '}, {'L', 'L', 'L', ' '}};
 }
 
 void LBlock::rotatecw() {
@@ -282,6 +286,7 @@ OBlock::OBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(0, 2);
     coords.emplace_back(1, 1);
     coords.emplace_back(1, 2);
+    displayBlock = {{'O', 'O', ' ', ' '}, {'O', 'O', ' ', ' '}};
 }
 
 void OBlock::rotatecw() {}
@@ -296,6 +301,7 @@ SBlock::SBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(1, 1);
     coords.emplace_back(1, 0);
     coords.emplace_back(2, 0);
+    displayBlock = {{' ', 'S', 'S', ' '}, {'S', 'S', ' ', ' '}};
 }
 
 void SBlock::rotatecw() {
@@ -368,6 +374,7 @@ ZBlock::ZBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(1, 0);
     coords.emplace_back(1, 1);
     coords.emplace_back(2, 1);
+    displayBlock = {{'Z', 'Z', ' ', ' '}, {' ', 'Z', 'Z', ' '}};
 }
 
 void ZBlock::rotatecw() {
@@ -443,6 +450,7 @@ TBlock::TBlock(int generatedLevel, bool heavy): Block{generatedLevel, heavy} {
     coords.emplace_back(0, 1);
     coords.emplace_back(1, 1);
     coords.emplace_back(2, 1);
+    displayBlock = {{'T', 'T', 'T', ' '}, {' ', 'T', ' ', ' '}};
 }
 
 void TBlock::rotatecw() {

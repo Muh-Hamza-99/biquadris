@@ -9,6 +9,7 @@ class Block {
     protected:
         bool heavy;
         vector<pair<int, int>> coords; // Pairs of (x,y) coordinates
+        vector<vector<char>> displayBlock; // Vector of vector of chars for printing next block
         int rotation = 0;
         int generatedLevel;
     public:
@@ -16,6 +17,7 @@ class Block {
         void left();
         void right();
         void down();
+        vector<vector<char>> getDisplayBlock() const;
         int getGeneratedLevel() const;
         bool getHeavy() const;
         void setHeavy(bool heavy);
