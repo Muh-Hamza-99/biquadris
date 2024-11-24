@@ -3,8 +3,8 @@
 #include <string>
 using namespace std;
 
-Board::Board(int width, int height, int score, int highScore, string name):
-    width{width}, height{height}, score{score}, highScore{highScore}, name{name} {
+Board::Board(int score, int highScore, string name):
+    score{score}, highScore{highScore}, name{name} {
     // Prepopulating the grid with cells
     for (int i = 0; i < height; ++i) {
         vector<Cell> row;
