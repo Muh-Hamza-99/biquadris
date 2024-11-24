@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-Level0::Level0(string file, int currentBlockIndex): file{file}, currentBlockIndex{currentBlockIndex} {
+Level0::Level0(string file, int currentBlockIndex): Level{file}, currentBlockIndex{currentBlockIndex} {
     ifstream fs { file };
     if (!fs) {
         cerr << "Error opening file " << file << endl;

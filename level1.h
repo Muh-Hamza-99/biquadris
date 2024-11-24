@@ -6,7 +6,7 @@
 class Level1 : public Level {
     vector<char> pool;
     public:
-        Level1();
+        Level1(string file);
         shared_ptr<Block> generateBlock() override;
         int getLevel() const override;
 };

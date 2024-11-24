@@ -3,7 +3,7 @@
 #include <cstdlib>
 using namespace std;
 
-Level3::Level3() {
+Level3::Level3(string file): Level{file} {
     pool = {'S', 'S', 'Z', 'Z', 'T', 'I', 'J', 'L', 'O'};
 }
 
