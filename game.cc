@@ -1,4 +1,5 @@
 #include "game.h"
+#include <iostream>
 
 Game::Game(shared_ptr<Board> board1, shared_ptr<Board> board2): board1{board1}, board2{board2} {}
 
@@ -102,7 +103,21 @@ void Game::drop() {
     }
   }
 
+  // Clear any filled rows, update blocks' coordinates and clear empty blocks
+  // Check number of eliminated rows >= 2 and ask for special effect
+
   currentBoard->endTurn();
+  if (currentBoard->isOver()) {
+    shared_ptr<Board> otherBoard = player1Turn ? board2 : board1;
+    cout << otherBoard->getName() << " wins!" << endl;
+    cout << currentBoard->getName() << " loses!" << endl << endl;
+
+    board1->reset();
+    board2->reset();
+    player1Turn = true;
+    return;
+  }
+
   player1Turn = !player1Turn;
 }
 

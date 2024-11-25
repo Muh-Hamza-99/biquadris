@@ -15,6 +15,7 @@ class Board {
     int height = 18;
     int score = 0;
     int highScore = 0;
+    bool over = false;
     string name;
     vector<vector<Cell>> grid;
     vector<shared_ptr<Block>> blocks;
@@ -33,6 +34,7 @@ class Board {
         int getHeight() const;
         int getScore() const;
         int getHighScore() const;
+        bool isOver() const;
         shared_ptr<Level> getCurrentLevel() const;
         shared_ptr<Block> getCurrentBlock() const;
         shared_ptr<Block> getNextBlock() const;

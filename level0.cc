@@ -40,4 +40,6 @@ shared_ptr<Block> Level0::generateBlock() {
     return newBlock;
 }
 
+void Level0::resetLevel() { currentBlockIndex = 0; }
+
 int Level0::getLevel() const { return 0; }

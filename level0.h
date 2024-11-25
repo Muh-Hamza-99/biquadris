@@ -12,6 +12,7 @@ class Level0 : public Level {
     public:
         Level0(string file, int currentBlockIndex = 0);
         shared_ptr<Block> generateBlock() override;
+        void resetLevel() override;
         int getLevel() const override;
 };
 

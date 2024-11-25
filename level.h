@@ -12,6 +12,7 @@ class Level {
         Level(string file);
         virtual void readFile();
         virtual shared_ptr<Block> generateBlock() = 0;
+        virtual void resetLevel() = 0;
         virtual int getLevel() const = 0;
         virtual ~Level();
 };

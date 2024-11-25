@@ -23,7 +23,29 @@ Board::Board(shared_ptr<Level> currentLevel, string name): currentLevel{currentL
     }
 }
 
-void Board::reset() {}
+void Board::reset() {
+    grid.clear();
+    blocks.clear();
+    score = 0;
+    over = false;
+    for (int y = 0; y < height; ++y) {
+        vector<Cell> row;
+        grid.emplace_back(row);
+        for (int x = 0; x < width; ++x) {
+            Cell c { x, y };
+            grid[y].emplace_back(c);
+        }
+    }
+    currentLevel->resetLevel();
+    currentBlock = currentLevel->generateBlock();
+    nextBlock = currentLevel->generateBlock();
+
+    vector<pair<int, int>> currentBlockCoords = currentBlock->getCoords();
+    for (const pair<int, int> &coord : currentBlockCoords) {
+        grid[coord.second][coord.first].setOccupied(true);
+        grid[coord.second][coord.first].setContent(currentBlock->getType());
+    }
+}
 
 bool Board::withinBounds() {
     for (const pair<int, int> &coord : currentBlock->getCoords()) {
@@ -45,6 +67,13 @@ void Board::endTurn() {
     nextBlock = currentLevel->generateBlock();
 
     vector<pair<int, int>> currentBlockCoords = currentBlock->getCoords();
+    // Check if block can be placed in top-left corner
+    for (const pair<int, int> &coord : currentBlockCoords) {
+        if (grid[coord.second][coord.first].getOccupied()) {
+            over = true;
+            return;
+        }
+    }
     for (const pair<int, int> &coord : currentBlockCoords) {
         grid[coord.second][coord.first].setOccupied(true);
         grid[coord.second][coord.first].setContent(currentBlock->getType());
@@ -57,6 +86,7 @@ int Board::getWidth() const { return width; }
 int Board::getHeight() const { return height; }
 int Board::getScore() const { return score; }
 int Board::getHighScore() const { return highScore; }
+bool Board::isOver() const { return over; }
 shared_ptr<Level> Board::getCurrentLevel() const { return currentLevel; }
 shared_ptr<Block> Board::getCurrentBlock() const { return currentBlock; }
 shared_ptr<Block> Board::getNextBlock() const { return nextBlock; }

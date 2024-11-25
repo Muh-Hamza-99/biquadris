@@ -8,6 +8,7 @@ class Level2 : public Level {
     public:
         Level2(string file);
         shared_ptr<Block> generateBlock() override;
+        void resetLevel() override;
         int getLevel() const override;        
 };
 

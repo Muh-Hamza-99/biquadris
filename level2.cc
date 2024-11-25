@@ -28,4 +28,6 @@ shared_ptr<Block> Level2::generateBlock() {
     return newBlock;
 }
 
+void Level2::resetLevel() {}
+
 int Level2::getLevel() const { return 2; }
