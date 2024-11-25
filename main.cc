@@ -9,6 +9,7 @@
 #include "level1.h"
 #include "level2.h"
 #include "level3.h"
+#include "level4.h"
 #include "text.h"
 using namespace std;
 
@@ -68,7 +69,8 @@ int main(int argc, char* argv[]) {
         board1Level = make_shared<Level3>(scriptFile1);
         board2Level = make_shared<Level3>(scriptFile2);
     } else if (startLevel == 4) {
-        // Complete when level 4 is defined
+        board1Level = make_shared<Level4>(scriptFile1);
+        board2Level = make_shared<Level4>(scriptFile2);
     }
 
     cout << "-------------------------------------" << endl;

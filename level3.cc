@@ -8,7 +8,7 @@ Level3::Level3(string file): Level{file} {
 }
 
 shared_ptr<Block> Level3::generateBlock() {
-    int randomChar = pool[rand() % pool.size()];
+    char randomChar = pool[rand() % pool.size()];
     shared_ptr<Block> newBlock;
     if (randomChar == 'I') {
         newBlock = make_shared<IBlock>(3, true);
