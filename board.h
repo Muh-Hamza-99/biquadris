@@ -42,6 +42,7 @@ class Board {
         void setScore(int score);
         void setHighScore(int highScore);
         void setCell(int x, int y, bool occupied, char content = '.');
+        void setCurrentLevel(shared_ptr<Level> currentLevel);
 };
 
 #endif

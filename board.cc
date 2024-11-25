@@ -97,3 +97,4 @@ void Board::setCell(int x, int y, bool occupied, char content) {
     grid[y][x].setOccupied(occupied);
     grid[y][x].setContent(content);
 }
+void Board::setCurrentLevel(shared_ptr<Level> currentLevel) { this->currentLevel = currentLevel; }

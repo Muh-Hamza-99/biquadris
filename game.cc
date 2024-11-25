@@ -1,4 +1,9 @@
 #include "game.h"
+#include "level0.h"
+#include "level1.h"
+#include "level2.h"
+#include "level3.h"
+#include "level4.h"
 
 Game::Game(shared_ptr<Board> board1, shared_ptr<Board> board2): board1{board1}, board2{board2} {}
 
@@ -135,6 +140,44 @@ void Game::drop() {
 
   currentBoard->endTurn();
   player1Turn = !player1Turn;
+}
+
+void Game::levelUp() {
+  shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
+  
+  int currentLevelInt = currentBoard->getCurrentLevel()->getLevel();
+  string currentLevelFile = currentBoard->getCurrentLevel()->getFile();
+  if (currentLevelInt == 4) return;
+  currentLevelInt += 1;
+
+  if (currentLevelInt == 1) {
+    currentBoard->setCurrentLevel(make_shared<Level1>(currentLevelFile));
+  } else if (currentLevelInt == 2) {
+    currentBoard->setCurrentLevel(make_shared<Level2>(currentLevelFile));
+  } else if (currentLevelInt == 3) {
+    currentBoard->setCurrentLevel(make_shared<Level3>(currentLevelFile));
+  } else if (currentLevelInt == 4) {
+    currentBoard->setCurrentLevel(make_shared<Level4>(currentLevelFile));
+  }
+}
+
+void Game::levelDown() {
+  shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
+
+  int currentLevelInt = currentBoard->getCurrentLevel()->getLevel();
+  string currentLevelFile = currentBoard->getCurrentLevel()->getFile();
+  if (currentLevelInt == 0) return;
+  currentLevelInt -= 1;
+
+  if (currentLevelInt == 0) {
+    currentBoard->setCurrentLevel(make_shared<Level0>(currentLevelFile));
+  } else if (currentLevelInt == 1) {
+    currentBoard->setCurrentLevel(make_shared<Level1>(currentLevelFile));
+  } else if (currentLevelInt == 2) {
+    currentBoard->setCurrentLevel(make_shared<Level2>(currentLevelFile));
+  } else if (currentLevelInt == 3) {
+    currentBoard->setCurrentLevel(make_shared<Level3>(currentLevelFile));
+  }
 }
 
 shared_ptr<Board> Game::getBoard1() const { return board1; }

@@ -123,9 +123,11 @@ int main(int argc, char* argv[]) {
             game->drop();
             game->render();            
         } else if (command == "levelup") {
-            cout << "Game level increased to X" << endl;
+            game->levelUp();
+            game->render();
         } else if (command == "leveldown") {
-            cout << "Game level increased to X" << endl;
+            game->levelDown();
+            game->render();
         } else if (command == "random") {
 
         } else if (command == "norandom") {
