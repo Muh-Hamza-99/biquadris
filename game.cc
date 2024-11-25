@@ -13,7 +13,14 @@ void Game::left() {
   currentBoard->getCurrentBlock()->left();
   if (!currentBoard->withinBounds() || currentBoard->colliding()) {
     currentBoard->getCurrentBlock()->right();
-  };
+  }
+  // Checking for heavy block
+  if (currentBoard->getCurrentBlock()->getHeavy()) {
+    currentBoard->getCurrentBlock()->down();
+    if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+      currentBoard->getCurrentBlock()->up();
+    }
+  }
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
   }
@@ -28,7 +35,14 @@ void Game::right() {
   currentBoard->getCurrentBlock()->right();
   if (!currentBoard->withinBounds() || currentBoard->colliding()) {
     currentBoard->getCurrentBlock()->left();
-  };
+  }
+  // Checking for heavy block
+  if (currentBoard->getCurrentBlock()->getHeavy()) {
+    currentBoard->getCurrentBlock()->down();
+    if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+      currentBoard->getCurrentBlock()->up();
+    }
+  }
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
   }
@@ -58,7 +72,14 @@ void Game::rotatecw() {
   currentBoard->getCurrentBlock()->rotatecw();
   if (!currentBoard->withinBounds() || currentBoard->colliding()) {
     currentBoard->getCurrentBlock()->rotateccw();
-  };
+  }
+  // Checking for heavy block
+  if (currentBoard->getCurrentBlock()->getHeavy()) {
+    currentBoard->getCurrentBlock()->down();
+    if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+      currentBoard->getCurrentBlock()->up();
+    }
+  }
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
   }
@@ -73,7 +94,14 @@ void Game::rotateccw() {
   currentBoard->getCurrentBlock()->rotateccw();
   if (!currentBoard->withinBounds() || currentBoard->colliding()) {
     currentBoard->getCurrentBlock()->rotatecw();
-  };
+  }
+  // Checking for heavy block
+  if (currentBoard->getCurrentBlock()->getHeavy()) {
+    currentBoard->getCurrentBlock()->down();
+    if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+      currentBoard->getCurrentBlock()->up();
+    }
+  }
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
   }
