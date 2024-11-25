@@ -1,5 +1,4 @@
 #include "game.h"
-#include <iostream>
 
 Game::Game(shared_ptr<Board> board1, shared_ptr<Board> board2): board1{board1}, board2{board2} {}
 
@@ -107,17 +106,6 @@ void Game::drop() {
   // Check number of eliminated rows >= 2 and ask for special effect
 
   currentBoard->endTurn();
-  if (currentBoard->isOver()) {
-    shared_ptr<Board> otherBoard = player1Turn ? board2 : board1;
-    cout << otherBoard->getName() << " wins!" << endl;
-    cout << currentBoard->getName() << " loses!" << endl << endl;
-
-    board1->reset();
-    board2->reset();
-    player1Turn = true;
-    return;
-  }
-
   player1Turn = !player1Turn;
 }
 
@@ -131,8 +119,10 @@ void Game::startGame() {
   render();
 }
 
-void Game::restartGame() {
-  startGame();
+void Game::restart() {
+  board1->reset();
+  board2->reset();
+  player1Turn = true;
 }
 
 bool Game::checkPlayer1Turn() const { return player1Turn; }

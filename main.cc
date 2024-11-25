@@ -135,11 +135,24 @@ int main(int argc, char* argv[]) {
         } else if (command == "sequence") {
 
         } else if (command == "restart") {
-            
+            game->restart();
+            game->render();
         } else if (command == "quit") {
             break;
         } else {
             cout << "Invalid command. Please input a valid command.";
+        }
+
+        if (board1->isOver() || board2->isOver()) {
+            string board1Message = board1->isOver() ? " loses!" : " wins!";
+            string board2Message = board2->isOver()? " loses!" : " wins!";
+            
+            cout << board1->getName() << board1Message << endl;
+            cout << board2->getName() << board2Message << endl << endl;
+
+            cout << "Game restarted!" << endl;
+            game->restart();
+            game->render();
         }
     }
 }
