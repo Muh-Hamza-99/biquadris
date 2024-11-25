@@ -10,6 +10,7 @@ private:
     // private methods
     int calcLineClearScore(int lines, int level);
     int calcBlockClearScore(int level);
+    void checkUpdateHiScore();
 
 public:
     // constructor
@@ -20,7 +21,6 @@ public:
     int getHiScore();
     void updateLineClearScore(int lines, int level);
     void updateBlockClearScore(int level);
-    void checkUpdateHiScore();
     void clearScore();
 };
 
