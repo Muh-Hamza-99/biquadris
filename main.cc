@@ -149,7 +149,13 @@ int main(int argc, char* argv[]) {
             cout << "Switched to random mode." << endl;
             game->render(); 
         } else if (command == "sequence") {
-            
+            string file; 
+            cin >> file; 
+            ifstream infile { file }; 
+            if (!infile) {
+                cerr << "Can not open sequence file: " << filename << endl; 
+                
+            }
         } else if (command == "restart") {
             game->restart();
             game->render();

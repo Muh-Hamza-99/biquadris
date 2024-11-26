@@ -47,7 +47,7 @@ void Level3::setRandom(bool random, const string& file) {
         blocks.clear(); // reset blocks
         ifstream infile {file}; 
         if (!infile) {
-            cout << "Error: Could not open sequence file." << endl;
+            cerr << "Error: Could not open sequence file." << endl;
         }
 
         char block;
