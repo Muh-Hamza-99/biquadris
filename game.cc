@@ -16,13 +16,13 @@ void Game::left() {
     currentBoard->setCell(coord.first, coord.second, false);
   }
   currentBoard->getCurrentBlock()->left();
-  if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+  if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
     currentBoard->getCurrentBlock()->right();
   }
   // Checking for heavy block
   if (currentBoard->getCurrentBlock()->getHeavy()) {
     currentBoard->getCurrentBlock()->down();
-    if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+    if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
       currentBoard->getCurrentBlock()->up();
     }
   }
@@ -38,13 +38,13 @@ void Game::right() {
     currentBoard->setCell(coord.first, coord.second, false);
   }
   currentBoard->getCurrentBlock()->right();
-  if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+  if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
     currentBoard->getCurrentBlock()->left();
   }
   // Checking for heavy block
   if (currentBoard->getCurrentBlock()->getHeavy()) {
     currentBoard->getCurrentBlock()->down();
-    if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+    if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
       currentBoard->getCurrentBlock()->up();
     }
   }
@@ -60,7 +60,7 @@ void Game::down() {
     currentBoard->setCell(coord.first, coord.second, false);
   }
   currentBoard->getCurrentBlock()->down();
-  if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+  if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
     currentBoard->getCurrentBlock()->up();
   };
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
@@ -75,13 +75,13 @@ void Game::rotatecw() {
     currentBoard->setCell(coord.first, coord.second, false);
   }
   currentBoard->getCurrentBlock()->rotatecw();
-  if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+  if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
     currentBoard->getCurrentBlock()->rotateccw();
   }
   // Checking for heavy block
   if (currentBoard->getCurrentBlock()->getHeavy()) {
     currentBoard->getCurrentBlock()->down();
-    if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+    if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
       currentBoard->getCurrentBlock()->up();
     }
   }
@@ -97,13 +97,13 @@ void Game::rotateccw() {
     currentBoard->setCell(coord.first, coord.second, false);
   }
   currentBoard->getCurrentBlock()->rotateccw();
-  if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+  if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
     currentBoard->getCurrentBlock()->rotatecw();
   }
   // Checking for heavy block
   if (currentBoard->getCurrentBlock()->getHeavy()) {
     currentBoard->getCurrentBlock()->down();
-    if (!currentBoard->withinBounds() || currentBoard->colliding()) {
+    if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
       currentBoard->getCurrentBlock()->up();
     }
   }
@@ -135,9 +135,7 @@ void Game::drop() {
     }
   }
 
-  // Clear any filled rows, update blocks' coordinates and clear empty blocks
-  // Check number of eliminated rows >= 2 and ask for special effect
-
+  currentBoard->clearFullRows();
   currentBoard->endTurn();
   player1Turn = !player1Turn;
 }

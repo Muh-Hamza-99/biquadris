@@ -47,20 +47,6 @@ void Board::reset() {
     }
 }
 
-bool Board::withinBounds() {
-    for (const pair<int, int> &coord : currentBlock->getCoords()) {
-        if (coord.first < 0 || coord.first > width - 1 || coord.second < 0 || coord.second > height - 1) return false;
-    }
-    return true;
-}
-
-bool Board::colliding() {
-    for (const pair<int, int> &coord : currentBlock->getCoords()) {
-        if (grid[coord.second][coord.first].getOccupied()) return true;
-    }
-    return false;
-}
-
 void Board::endTurn() {
     blocks.emplace_back(currentBlock);
     currentBlock = nextBlock;
@@ -77,6 +63,61 @@ void Board::endTurn() {
     for (const pair<int, int> &coord : currentBlockCoords) {
         grid[coord.second][coord.first].setOccupied(true);
         grid[coord.second][coord.first].setContent(currentBlock->getType());
+    }
+}
+
+bool Board::currentBlockWithinBounds() {
+    for (const pair<int, int> &coord : currentBlock->getCoords()) {
+        if (coord.first < 0 || coord.first > width - 1 || coord.second < 0 || coord.second > height - 1) return false;
+    }
+    return true;
+}
+
+bool Board::currentBlockColliding() {
+    for (const pair<int, int> &coord : currentBlock->getCoords()) {
+        if (grid[coord.second][coord.first].getOccupied()) return true;
+    }
+    return false;
+}
+
+void Board::clearFullRows() {
+    int cleared = 0;
+    for (int y = 0; y < height; ++y) {
+        bool full = true;
+        for (int x = 0 ; x < width; ++x) {
+            if (!grid[y][x].getOccupied()) {
+                full = false;
+                break;
+            }
+        }
+
+        if (!full) continue;
+        // Clearing full row
+        for (int x = 0; x < width; ++x) {
+            grid[y][x].setOccupied(false);
+            grid[y][x].setContent('.');
+        }
+        ++cleared;
+
+        // Shifting previous rows down one row
+        for (int i = y; i > 0; --i) {
+            for (int j = 0; j < width; ++j) {
+                grid[i][j].setContent(grid[i - 1][j].getContent());
+                grid[i][j].setOccupied(grid[i - 1][j].getOccupied());
+            }
+        }
+
+        // Clearing top row
+        for (int i = 0; i < width; ++i) {
+            grid[0][i].setOccupied(false);
+            grid[0][i].setContent('.');
+        }
+
+        --y;
+    }
+
+    if (cleared > 0) {
+        score += ((currentLevel->getLevel() + cleared) * (currentLevel->getLevel() + cleared));
     }
 }
 

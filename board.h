@@ -25,9 +25,10 @@ class Board {
     public:
         Board(shared_ptr<Level> currentLevel, string name = "Player");
         void reset();
-        bool withinBounds();
-        bool colliding();
         void endTurn();
+        bool currentBlockWithinBounds();
+        bool currentBlockColliding();
+        void clearFullRows();
         Cell getCell(int x, int y) const;
         string getName() const;
         int getWidth() const;
