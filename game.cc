@@ -10,14 +10,17 @@ Game::Game(shared_ptr<Board> board1, shared_ptr<Board> board2): board1{board1}, 
 void Game::render() { notifyObservers(); }
 
 void Game::left(int repetitions) {
+  if (repetitions == 0) return;
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, false);
   }
-  currentBoard->getCurrentBlock()->left();
-  if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
-    currentBoard->getCurrentBlock()->right();
+  for (int i = 0; i < repetitions; ++i) {
+    currentBoard->getCurrentBlock()->left();
+    if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
+      currentBoard->getCurrentBlock()->right();
+    }
   }
   // Checking for heavy block
   if (currentBoard->getCurrentBlock()->getHeavy()) {
@@ -32,14 +35,17 @@ void Game::left(int repetitions) {
 }
 
 void Game::right(int repetitions) {
+  if (repetitions == 0) return;
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, false);
   }
-  currentBoard->getCurrentBlock()->right();
-  if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
-    currentBoard->getCurrentBlock()->left();
+  for (int i = 0; i < repetitions; ++i) {
+    currentBoard->getCurrentBlock()->right();
+    if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
+      currentBoard->getCurrentBlock()->left();
+    }
   }
   // Checking for heavy block
   if (currentBoard->getCurrentBlock()->getHeavy()) {
@@ -54,29 +60,35 @@ void Game::right(int repetitions) {
 }
 
 void Game::down(int repetitions) {
+  if (repetitions == 0) return;
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, false);
   }
-  currentBoard->getCurrentBlock()->down();
-  if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
-    currentBoard->getCurrentBlock()->up();
-  };
+  for (int i = 0; i < repetitions; ++i) {
+    currentBoard->getCurrentBlock()->down();
+    if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
+      currentBoard->getCurrentBlock()->up();
+    }
+  }
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
   }
 }
 
 void Game::rotatecw(int repetitions) {
+  if (repetitions == 0) return;
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, false);
   }
-  currentBoard->getCurrentBlock()->rotatecw();
-  if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
-    currentBoard->getCurrentBlock()->rotateccw();
+  for (int i = 0; i < repetitions; ++i) {
+    currentBoard->getCurrentBlock()->rotatecw();
+    if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
+      currentBoard->getCurrentBlock()->rotateccw();
+    }
   }
   // Checking for heavy block
   if (currentBoard->getCurrentBlock()->getHeavy()) {
@@ -91,14 +103,17 @@ void Game::rotatecw(int repetitions) {
 }
 
 void Game::rotateccw(int repetitions) {
+  if (repetitions == 0) return;
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, false);
   }
-  currentBoard->getCurrentBlock()->rotateccw();
-  if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
-    currentBoard->getCurrentBlock()->rotatecw();
+  for (int i = 0; i < repetitions; ++i) {
+    currentBoard->getCurrentBlock()->rotateccw();
+    if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
+      currentBoard->getCurrentBlock()->rotatecw();
+    }
   }
   // Checking for heavy block
   if (currentBoard->getCurrentBlock()->getHeavy()) {
@@ -141,12 +156,15 @@ void Game::drop() {
 }
 
 void Game::levelUp(int repetitions) {
+  if (repetitions == 0) return;
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
   
   int currentLevelInt = currentBoard->getCurrentLevel()->getLevel();
   string currentLevelFile = currentBoard->getCurrentLevel()->getFile();
   if (currentLevelInt == 4) return;
-  currentLevelInt += 1;
+  
+  for (int i = 0; i < repetitions; ++i) currentLevelInt += 1;
+  if (currentLevelInt > 4) currentLevelInt = 4;
 
   if (currentLevelInt == 1) {
     currentBoard->setCurrentLevel(make_shared<Level1>(currentLevelFile));
@@ -160,12 +178,14 @@ void Game::levelUp(int repetitions) {
 }
 
 void Game::levelDown(int repetitions) {
+  if (repetitions == 0) return;
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
   int currentLevelInt = currentBoard->getCurrentLevel()->getLevel();
   string currentLevelFile = currentBoard->getCurrentLevel()->getFile();
   if (currentLevelInt == 0) return;
-  currentLevelInt -= 1;
+  for (int i = 0; i < repetitions; ++i) currentLevelInt -= 1;
+  if (currentLevelInt < 0) currentLevelInt = 0;
 
   if (currentLevelInt == 0) {
     currentBoard->setCurrentLevel(make_shared<Level0>(currentLevelFile));
