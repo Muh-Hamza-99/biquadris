@@ -14,6 +14,7 @@ class Level4 : public Level {
         shared_ptr<Block> generateBlock() override;
         void resetLevel() override;
         int getLevel() const override;
+        void setRandom(bool random, const string& file); 
 };
 
 #endif

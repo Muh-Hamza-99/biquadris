@@ -262,3 +262,17 @@ void Game::restart() {
 }
 
 bool Game::checkPlayer1Turn() const { return player1Turn; }
+
+void Game::setRandom(const string& file) {
+  if (auto level = dynamic_pointer_cast<Level3>(board1->getCurrentLevel())) {
+        level->setRandom(random, file);
+    } else if (auto level = dynamic_pointer_cast<Level4>(board1->getCurrentLevel())) {
+        level->setRandom(random, file);
+    }
+
+    if (auto level = dynamic_pointer_cast<Level3>(board2->getCurrentLevel())) {
+        level->setRandom(random, file);
+    } else if (auto level = dynamic_pointer_cast<Level4>(board2->getCurrentLevel())) {
+        level->setRandom(random, file);
+    }
+}

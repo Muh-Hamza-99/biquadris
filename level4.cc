@@ -41,3 +41,20 @@ shared_ptr<Block> Level4::generateBlock() {
 void Level4::resetLevel() { currentBlockIndex = 0; }
 
 int Level4::getLevel() const { return 4; }
+
+void Level4::setRandom(bool random, const string& file) {
+    randomize = random; 
+    if (random == false) {
+        blocks.clear(); // reset blocks
+        ifstream infile {file}; 
+        if (!infile) {
+            cout << "Error: Could not open sequence file." << endl;
+        }
+
+        char block;
+        while (infile >> block) {
+            blocks.push_back(block);
+        }
+        currentBlockIndex = 0;
+    }
+}
