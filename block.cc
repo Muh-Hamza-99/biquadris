@@ -30,6 +30,15 @@ vector<vector<char>> Block::getDisplayBlock() const { return displayBlock; }
 int Block::getGeneratedLevel() const { return generatedLevel; }
 bool Block::getHeavy() const { return heavy; }
 void Block::setHeavy(bool heavy) { this->heavy = heavy; }
+void Block::removeCoord(pair<int, int> coord) {
+    for (vector<pair<int, int>>::iterator it = coords.begin(); it != coords.end();) {
+        if (it->first == coord.first && it->second == coord.second) {
+            it = coords.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
 
 // IBLOCK
 

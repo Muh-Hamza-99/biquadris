@@ -1,6 +1,7 @@
 #include "board.h"
 #include <vector>
 #include <string>
+#include <utility>
 using namespace std;
 
 Board::Board(shared_ptr<Level> currentLevel, string name): currentLevel{currentLevel}, name{name} {
@@ -96,6 +97,7 @@ void Board::clearFullRows() {
         for (int x = 0; x < width; ++x) {
             grid[y][x].setOccupied(false);
             grid[y][x].setContent('.');
+            for (shared_ptr<Block> block : blocks) block->removeCoord(make_pair(x, y));
         }
         ++cleared;
 
@@ -116,8 +118,15 @@ void Board::clearFullRows() {
         --y;
     }
 
-    if (cleared > 0) {
-        score += ((currentLevel->getLevel() + cleared) * (currentLevel->getLevel() + cleared));
+    if (cleared == 0) return;
+    score += ((currentLevel->getLevel() + cleared) * (currentLevel->getLevel() + cleared));
+    for (vector<shared_ptr<Block>>::iterator it = blocks.begin(); it != blocks.end();) {
+        if (static_cast<int>((*it)->getCoords().size()) == 0) {
+            score += (((*it)->getGeneratedLevel() + 1) * ((*it)->getGeneratedLevel() + 1));
+            it = blocks.erase(it);
+        } else {
+            ++it;
+        }
     }
 }
 

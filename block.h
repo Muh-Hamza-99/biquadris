@@ -25,6 +25,7 @@ class Block {
         int getGeneratedLevel() const;
         bool getHeavy() const;
         void setHeavy(bool heavy);
+        void removeCoord(pair<int, int> coord);
         virtual ~Block();
         virtual char getType() const = 0;
         virtual void rotatecw() = 0;
