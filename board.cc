@@ -128,7 +128,9 @@ int Board::clearFullRows() {
             ++it;
         }
     }
-    
+
+    if (score > highScore) highScore = score;
+
     return cleared;
 }
 
