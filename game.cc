@@ -135,8 +135,8 @@ void Game::drop() {
     }
   }
 
-  currentBoard->clearFullRows();
   currentBoard->endTurn();
+  currentBoard->clearFullRows();
   player1Turn = !player1Turn;
 }
 

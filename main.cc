@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
             istringstream iss { arg2 };
             int seed;
             iss >> seed;
-            // Set seed
+            srand(seed);
         } else if (arg == "-scriptfile1") {
             ++i;
             string arg2 { argv[i] };
@@ -142,7 +142,7 @@ int main(int argc, char* argv[]) {
         } else if (command == "quit") {
             break;
         } else {
-            cout << "Invalid command. Please input a valid command.";
+            cout << "Invalid command. Please input a valid command." << endl;
         }
 
         if (board1->isOver() || board2->isOver()) {
