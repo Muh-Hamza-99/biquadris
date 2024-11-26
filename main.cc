@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include <memory>
 #include "board.h"
 #include "game.h"
@@ -142,7 +143,7 @@ int main(int argc, char* argv[]) {
             cin >> file; 
             try {
                 game->setRandom(false, file); 
-                cout << "Switched to non-random mode with file: " << filename << endl; 
+                cout << "Switched to non-random mode with file: " << file << endl; 
             } catch (const runtime_error &e) {
                 cerr << e.what() << endl; // handle errors with the file
             }
@@ -160,7 +161,7 @@ int main(int argc, char* argv[]) {
             } else {
                 string line; 
                 while (getline(sequenceFile, line)) {
-                    isstringstream iss(line); 
+                    istringstream iss(line); 
                     string seqCommand; 
                     while (iss >> seqCommand) {
                         int seqMultiplier = 1; 

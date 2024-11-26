@@ -31,7 +31,7 @@ class Game : public Subject {
         bool checkPlayer1Turn() const;
         void startGame();
         void restart(); 
-        void setRandom(bool random, const string &file); 
+        void setRandom(bool random, const string &file = ""); 
 };
 
 #endif
