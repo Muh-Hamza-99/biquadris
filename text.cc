@@ -21,11 +21,19 @@ void Text::notify() {
 
     for (int y = 0; y < subject->getBoard1()->getHeight(); ++y) {
         for (int x = 0; x < subject->getBoard1()->getWidth(); ++x) {
-            cout << subject->getBoard1()->getCell(x, y).getContent();
+            if (subject->getBoard1()->getBlind() && x >= 2 && x <= 8 && y >= 2 && y <= 11) {
+                cout << '?';
+            } else {
+                cout << subject->getBoard1()->getCell(x, y).getContent();
+            }
         }
         cout << space;
         for (int x = 0; x < subject->getBoard2()->getWidth(); ++x) {
-            cout << subject->getBoard2()->getCell(x, y).getContent();
+            if (subject->getBoard2()->getBlind() && x >= 2 && x <= 8 && y >= 2 && y <= 11) {
+                cout << '?';
+            } else {
+                cout << subject->getBoard2()->getCell(x, y).getContent();
+            }
         }
         cout << endl;
     }

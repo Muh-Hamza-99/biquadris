@@ -197,6 +197,8 @@ void Game::drop() {
   }
   
   currentBoard->showNewCurrentBlock();
+  currentBoard->setBlind(false);
+  currentBoard->setHeavy(false);
   player1Turn = !player1Turn;
 }
 
