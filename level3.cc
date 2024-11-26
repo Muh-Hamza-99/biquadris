@@ -1,9 +1,18 @@
 #include "level3.h"
 #include "block.h"
 #include <cstdlib>
+#include <iostream>
+#include <fstream>
 using namespace std;
 
-Level3::Level3(string file): Level{file} {
+Level3::Level3(string file, bool randomize, int currentBlockIndex): Level{file}, randomize{randomize}, currentBlockIndex{currentBlockIndex} {
+    ifstream fs { file };
+    if (!fs) {
+        cerr << "Error opening file " << file << endl;
+        exit(1);
+    }
+    char block;
+    while (fs >> block) { blocks.emplace_back(block); }
     pool = {'S', 'S', 'Z', 'Z', 'T', 'I', 'J', 'L', 'O'};
 }
 
@@ -28,6 +37,6 @@ shared_ptr<Block> Level3::generateBlock() {
     return newBlock;
 }
 
-void Level3::resetLevel() {}
+void Level3::resetLevel() { currentBlockIndex = 0; }
 
 int Level3::getLevel() const { return 3; }

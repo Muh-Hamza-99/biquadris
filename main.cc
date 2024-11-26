@@ -134,8 +134,6 @@ int main(int argc, char* argv[]) {
         } else if (command.substr(0, 6) == "leveld") { // leveldown
             game->levelDown(multiplier);
             game->render();
-        } else if (command == "random") {
-
         } else if (command == "norandom") {
 
         } else if (command == "random") {
@@ -153,7 +151,7 @@ int main(int argc, char* argv[]) {
 
         if (board1->isOver() || board2->isOver()) {
             string board1Message = board1->isOver() ? " loses!" : " wins!";
-            string board2Message = board2->isOver()? " loses!" : " wins!";
+            string board2Message = board2->isOver() ? " loses!" : " wins!";
             
             cout << board1->getName() << board1Message << " Score: " << board1->getScore() << " High Score: " << board1->getHighScore() << endl;
             cout << board2->getName() << board2Message << " Score: " << board2->getScore() << " High Score: " << board2->getHighScore() << endl << endl;
