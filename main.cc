@@ -156,8 +156,8 @@ int main(int argc, char* argv[]) {
             cin >> file; 
             ifstream infile { file }; 
             if (!infile) {
-                cerr << "Can not open sequence file: " << filename << endl; 
-                
+                cerr << "Can not open sequence file: " << file << endl; 
+
             }
         } else if (command == "restart") {
             game->restart();
