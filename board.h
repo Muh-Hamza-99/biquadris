@@ -27,7 +27,8 @@ class Board {
     public:
         Board(shared_ptr<Level> currentLevel, string name = "Player");
         void reset();
-        void endTurn();
+        void dropCurrentBlock();
+        void showNewCurrentBlock();
         bool currentBlockWithinBounds();
         bool currentBlockColliding();
         int clearFullRows();

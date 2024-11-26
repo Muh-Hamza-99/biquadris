@@ -48,11 +48,7 @@ void Board::reset() {
     }
 }
 
-void Board::endTurn() {
-    blocks.emplace_back(currentBlock);
-    currentBlock = nextBlock;
-    nextBlock = currentLevel->generateBlock();
-
+void Board::showNewCurrentBlock() {
     vector<pair<int, int>> currentBlockCoords = currentBlock->getCoords();
     // Check if block can be placed in top-left corner
     for (const pair<int, int> &coord : currentBlockCoords) {
@@ -65,6 +61,12 @@ void Board::endTurn() {
         grid[coord.second][coord.first].setOccupied(true);
         grid[coord.second][coord.first].setContent(currentBlock->getType());
     }
+}
+
+void Board::dropCurrentBlock() {
+    blocks.emplace_back(currentBlock);
+    currentBlock = nextBlock;
+    nextBlock = currentLevel->generateBlock();
 }
 
 bool Board::currentBlockWithinBounds() {

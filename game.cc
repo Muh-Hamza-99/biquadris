@@ -171,7 +171,7 @@ void Game::drop() {
     }
   }
 
-  currentBoard->endTurn();
+  currentBoard->dropCurrentBlock();
   int cleared = currentBoard->clearFullRows();
 
   if (cleared >= 2) {
@@ -195,7 +195,8 @@ void Game::drop() {
       otherBoard->force(block);
     }
   }
-
+  
+  currentBoard->showNewCurrentBlock();
   player1Turn = !player1Turn;
 }
 
