@@ -11,6 +11,7 @@
 #include "level3.h"
 #include "level4.h"
 #include "text.h"
+#include "graphic.h"
 using namespace std;
 
 const int MIN_LEVEL = 0;
@@ -91,6 +92,8 @@ int main(int argc, char* argv[]) {
     game->attach(textObserver);
     if (graphics) {
         // Add graphics observer
+        shared_ptr<Graphic> graphicsObserver { new Graphic(game) };
+        game->attach(graphicsObserver);
     }
     game->render();
 
