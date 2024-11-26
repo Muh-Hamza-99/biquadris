@@ -132,6 +132,35 @@ int Board::clearFullRows() {
     return cleared;
 }
 
+void Board::force(char newBlock) {
+    // Clear current block from grid
+    for (const pair<int, int> &coord : currentBlock->getCoords()) {
+        grid[coord.second][coord.first].setOccupied(false);
+        grid[coord.second][coord.first].setContent('.');
+    }
+
+    if (newBlock == 'I') {
+        currentBlock = make_shared<IBlock>(currentBlock->getGeneratedLevel());
+    } else if (newBlock == 'J') {
+        currentBlock = make_shared<JBlock>(currentBlock->getGeneratedLevel());
+    } else if (newBlock == 'L') {
+        currentBlock = make_shared<LBlock>(currentBlock->getGeneratedLevel());
+    } else if (newBlock == 'S') {
+        currentBlock = make_shared<SBlock>(currentBlock->getGeneratedLevel());
+    } else if (newBlock == 'Z') {
+        currentBlock = make_shared<ZBlock>(currentBlock->getGeneratedLevel());
+    } else if (newBlock == 'T') {
+        currentBlock = make_shared<TBlock>(currentBlock->getGeneratedLevel());
+    } else if (newBlock == 'O') {
+        currentBlock = make_shared<OBlock>(currentBlock->getGeneratedLevel());
+    }
+
+    for (const pair<int, int> &coord : currentBlock->getCoords()) {
+        grid[coord.second][coord.first].setOccupied(true);
+        grid[coord.second][coord.first].setContent(currentBlock->getType());
+    }
+}
+
 Cell Board::getCell(int x, int y) const { return grid.at(y).at(x); }
 string Board::getName() const { return name; }
 int Board::getWidth() const { return width; }

@@ -159,50 +159,22 @@ void Game::drop() {
   if (cleared >= 2) {
     shared_ptr<Board> otherBoard = player1Turn ? board2 : board1;
     cout << "You cleared more than 2 rows, " << currentBoard->getName() << "!" << endl;
-    
-    while (true) {
-      cout << "Choose an effect to cast upon " << otherBoard->getName() << endl;
-      cout << "(1) blind - prevent your opponent from seeing majority of the board" << endl;
-      cout << "(2) heavy - make your opponent's current block x2 heavy" << endl;
-      cout << "(3) force X - choose your opponent's current block" << endl;
+    cout << "Choose an effect to cast upon " << otherBoard->getName() << endl;
+    cout << "(1) blind - prevent your opponent from seeing majority of the board" << endl;
+    cout << "(2) heavy - make your opponent's current block x2 heavy" << endl;
+    cout << "(3) force X - choose your opponent's current block" << endl;
       
-      string effect;
-      cin >> effect;
+    string effect;
+    cin >> effect;
 
-      if (effect == "blind") {
-        otherBoard->setBlind(true);
-        break;
-      } else if (effect == "heavy") {
-        otherBoard->setHeavy(true);
-        break;
-      } else if (effect == "force") {
-        string block;
-        cin >> block;
-        
-        if (block != "I" || block != "J" || block != "L" || block != "S" || block != "Z" || block != "T" || block != "O") {
-          cout << "Invalid block. Please input a valid block." << endl;
-          continue;
-        }
-
-        if (block == "I") {
-          otherBoard->setCurrentBlock(make_shared<IBlock>(otherBoard->getCurrentBlock()->getGeneratedLevel()));
-        } else if (block == "J") {
-          otherBoard->setCurrentBlock(make_shared<JBlock>(otherBoard->getCurrentBlock()->getGeneratedLevel()));
-        } else if (block == "L") {
-          otherBoard->setCurrentBlock(make_shared<LBlock>(otherBoard->getCurrentBlock()->getGeneratedLevel()));
-        } else if (block == "S") {
-          otherBoard->setCurrentBlock(make_shared<SBlock>(otherBoard->getCurrentBlock()->getGeneratedLevel()));
-        } else if (block == "Z") {
-          otherBoard->setCurrentBlock(make_shared<ZBlock>(otherBoard->getCurrentBlock()->getGeneratedLevel()));
-        } else if (block == "T") {
-          otherBoard->setCurrentBlock(make_shared<TBlock>(otherBoard->getCurrentBlock()->getGeneratedLevel()));
-        } else if (block == "O") {
-          otherBoard->setCurrentBlock(make_shared<OBlock>(otherBoard->getCurrentBlock()->getGeneratedLevel()));
-        }
-        break;
-      } else {
-        cout << "Invalid effect. Please input a valid effect." << endl;
-      }
+    if (effect == "blind") {
+      otherBoard->setBlind(true);
+    } else if (effect == "heavy") {
+      otherBoard->setHeavy(true);
+    } else if (effect == "force") {
+      char block;
+      cin >> block;
+      otherBoard->force(block);
     }
   }
 

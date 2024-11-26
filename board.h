@@ -16,7 +16,8 @@ class Board {
     int score = 0;
     int highScore = 0;
     bool over = false;
-    bool blind, heavy, force;
+    bool blind = false;
+    bool heavy = false;
     string name;
     vector<vector<Cell>> grid;
     vector<shared_ptr<Block>> blocks;
@@ -30,6 +31,7 @@ class Board {
         bool currentBlockWithinBounds();
         bool currentBlockColliding();
         int clearFullRows();
+        void force(char newBlock);
         Cell getCell(int x, int y) const;
         string getName() const;
         int getWidth() const;
