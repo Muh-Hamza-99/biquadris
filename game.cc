@@ -9,7 +9,7 @@ Game::Game(shared_ptr<Board> board1, shared_ptr<Board> board2): board1{board1}, 
 
 void Game::render() { notifyObservers(); }
 
-void Game::left() {
+void Game::left(int repetitions) {
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
@@ -31,7 +31,7 @@ void Game::left() {
   }
 }
 
-void Game::right() {
+void Game::right(int repetitions) {
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
@@ -53,7 +53,7 @@ void Game::right() {
   }
 }
 
-void Game::down() {
+void Game::down(int repetitions) {
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
@@ -68,7 +68,7 @@ void Game::down() {
   }
 }
 
-void Game::rotatecw() {
+void Game::rotatecw(int repetitions) {
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
@@ -90,7 +90,7 @@ void Game::rotatecw() {
   }
 }
 
-void Game::rotateccw() {
+void Game::rotateccw(int repetitions) {
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
@@ -140,7 +140,7 @@ void Game::drop() {
   player1Turn = !player1Turn;
 }
 
-void Game::levelUp() {
+void Game::levelUp(int repetitions) {
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
   
   int currentLevelInt = currentBoard->getCurrentLevel()->getLevel();
@@ -159,7 +159,7 @@ void Game::levelUp() {
   }
 }
 
-void Game::levelDown() {
+void Game::levelDown(int repetitions) {
   shared_ptr<Board> currentBoard = player1Turn ? board1 : board2;
 
   int currentLevelInt = currentBoard->getCurrentLevel()->getLevel();

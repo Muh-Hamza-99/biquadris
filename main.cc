@@ -102,31 +102,37 @@ int main(int argc, char* argv[]) {
         }
 
         string command;
+        int multiplier = 1;
         cin >> command;
+        if (command.substr(0, 1) >= "0" && command.substr(0, 1) <= "9") {
+            istringstream iss { command };
+            iss >> multiplier;
+            command = command.substr(1);
+        }
 
-        if (command == "left") {
-            game->left();
+        if (command.substr(0, 3) == "lef") { // left
+            game->left(multiplier);
             game->render();
-        } else if (command == "right") {
-            game->right();
+        } else if (command.substr(0, 2) == "ri") { // right
+            game->right(multiplier);
             game->render();
-        } else if (command == "down") {
-            game->down();
+        } else if (command.substr(0, 3) == "dow") { // down
+            game->down(multiplier);
             game->render();
-        } else if (command == "clockwise") {
-            game->rotatecw();
+        } else if (command.substr(0, 3) == "clo") { // clockwise
+            game->rotatecw(multiplier);
             game->render();
-        } else if (command == "counterclockwise") {
-            game->rotateccw();
+        } else if (command.substr(0, 3) == "cou") { // counterclockwise
+            game->rotateccw(multiplier);
             game->render();
-        } else if (command == "drop") {
+        } else if (command.substr(0, 3) == "dro") { // drop
             game->drop();
             game->render();            
-        } else if (command == "levelup") {
-            game->levelUp();
+        } else if (command.substr(0, 6) == "levelu") { // levelup
+            game->levelUp(multiplier);
             game->render();
-        } else if (command == "leveldown") {
-            game->levelDown();
+        } else if (command.substr(0, 6) == "leveld") { // leveldown
+            game->levelDown(multiplier);
             game->render();
         } else if (command == "random") {
 
