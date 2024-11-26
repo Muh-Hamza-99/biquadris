@@ -32,6 +32,15 @@ void Game::left(int repetitions) {
       currentBoard->getCurrentBlock()->up();
     }
   }
+  // Checking for heavy effect
+  if (currentBoard->getHeavy()) {
+    for (int i = 0; i < 2; ++i) {
+      currentBoard->getCurrentBlock()->down();
+      if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
+        currentBoard->getCurrentBlock()->up();
+      }
+    }
+  }
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {
     currentBoard->setCell(coord.first, coord.second, true, currentBoard->getCurrentBlock()->getType());
   }
@@ -55,6 +64,15 @@ void Game::right(int repetitions) {
     currentBoard->getCurrentBlock()->down();
     if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
       currentBoard->getCurrentBlock()->up();
+    }
+  }
+  // Checking for heavy effect
+  if (currentBoard->getHeavy()) {
+    for (int i = 0; i < 2; ++i) {
+      currentBoard->getCurrentBlock()->down();
+      if (!currentBoard->currentBlockWithinBounds() || currentBoard->currentBlockColliding()) {
+        currentBoard->getCurrentBlock()->up();
+      }
     }
   }
   for (const pair<int, int> &coord : currentBoard->getCurrentBlock()->getCoords()) {

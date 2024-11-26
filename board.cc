@@ -128,7 +128,7 @@ int Board::clearFullRows() {
             ++it;
         }
     }
-
+    
     return cleared;
 }
 
