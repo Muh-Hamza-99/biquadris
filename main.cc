@@ -154,10 +154,57 @@ int main(int argc, char* argv[]) {
         } else if (command == "sequence") {
             string file; 
             cin >> file; 
-            ifstream infile { file }; 
-            if (!infile) {
+            ifstream sequenceFile { file }; 
+            if (!sequenceFile) {
                 cerr << "Can not open sequence file: " << file << endl; 
-
+            } else {
+                string line; 
+                while (getline(sequenceFile, line)) {
+                    isstringstream iss(line); 
+                    string seqCommand; 
+                    while (iss >> seqCommand) {
+                        int seqMultiplier = 1; 
+                        if (isdigit(seqCommand[0])) {
+                            size_t idx = 0; 
+                            seqMultiplier = stoi(seqCommand, &idx); 
+                            seqCommand = seqCommand.substr(idx); 
+                        }
+                        for (int i = 0; i < seqMultiplier; ++i) {
+                            if (seqCommand.substr(0, 3) == "lef") {
+                                game->left(1);
+                            } else if (seqCommand.substr(0, 2) == "ri") {
+                                game->right(1);
+                            } else if (seqCommand.substr(0, 3) == "dow") {
+                                game->down(1);
+                            } else if (seqCommand.substr(0, 3) == "clo") {
+                                game->rotatecw(1);
+                            } else if (seqCommand.substr(0, 3) == "cou") {
+                                game->rotateccw(1);
+                            } else if (seqCommand.substr(0, 3) == "dro") {
+                                game->drop();
+                            } else if (seqCommand.substr(0, 6) == "levelu") {
+                                game->levelUp(1);
+                            } else if (seqCommand.substr(0, 6) == "leveld") {
+                                game->levelDown(1);
+                            } else if (seqCommand == "random") {
+                                game->setRandom(true);
+                            } else if (seqCommand == "norandom") {
+                                string fileIn;
+                                iss >> fileIn;
+                                try {
+                                    game->setRandom(false, fileIn);
+                                } catch (const runtime_error &e) {
+                                    cerr << e.what() << endl;
+                                }
+                            } else if (seqCommand == "restart") {
+                                game->restart();
+                            } else {
+                                cerr << "Invalid command in sequence: " << seqCommand << endl;
+                            }
+                        }
+                    }
+                }
+                game->render();
             }
         } else if (command == "restart") {
             game->restart();
