@@ -81,7 +81,7 @@ bool Board::currentBlockColliding() {
     return false;
 }
 
-void Board::clearFullRows() {
+int Board::clearFullRows() {
     int cleared = 0;
     for (int y = 0; y < height; ++y) {
         bool full = true;
@@ -118,7 +118,7 @@ void Board::clearFullRows() {
         --y;
     }
 
-    if (cleared == 0) return;
+    if (cleared == 0) return 0;
     score += ((currentLevel->getLevel() + cleared) * (currentLevel->getLevel() + cleared));
     for (vector<shared_ptr<Block>>::iterator it = blocks.begin(); it != blocks.end();) {
         if (static_cast<int>((*it)->getCoords().size()) == 0) {
@@ -128,6 +128,8 @@ void Board::clearFullRows() {
             ++it;
         }
     }
+
+    return cleared;
 }
 
 Cell Board::getCell(int x, int y) const { return grid.at(y).at(x); }
@@ -137,6 +139,8 @@ int Board::getHeight() const { return height; }
 int Board::getScore() const { return score; }
 int Board::getHighScore() const { return highScore; }
 bool Board::isOver() const { return over; }
+bool Board::getBlind() const { return blind; }
+bool Board::getHeavy() const { return heavy; }
 shared_ptr<Level> Board::getCurrentLevel() const { return currentLevel; }
 shared_ptr<Block> Board::getCurrentBlock() const { return currentBlock; }
 shared_ptr<Block> Board::getNextBlock() const { return nextBlock; }
@@ -148,3 +152,6 @@ void Board::setCell(int x, int y, bool occupied, char content) {
     grid[y][x].setContent(content);
 }
 void Board::setCurrentLevel(shared_ptr<Level> currentLevel) { this->currentLevel = currentLevel; }
+void Board::setCurrentBlock(shared_ptr<Block> currentBlock) { this->currentBlock = currentBlock; }
+void Board::setBlind(bool blind) { this->blind = blind; }
+void Board::setHeavy(bool heavy) { this->heavy = heavy; }

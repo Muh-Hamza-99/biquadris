@@ -16,6 +16,7 @@ class Board {
     int score = 0;
     int highScore = 0;
     bool over = false;
+    bool blind, heavy, force;
     string name;
     vector<vector<Cell>> grid;
     vector<shared_ptr<Block>> blocks;
@@ -28,7 +29,7 @@ class Board {
         void endTurn();
         bool currentBlockWithinBounds();
         bool currentBlockColliding();
-        void clearFullRows();
+        int clearFullRows();
         Cell getCell(int x, int y) const;
         string getName() const;
         int getWidth() const;
@@ -36,6 +37,8 @@ class Board {
         int getScore() const;
         int getHighScore() const;
         bool isOver() const;
+        bool getBlind() const;
+        bool getHeavy() const;
         shared_ptr<Level> getCurrentLevel() const;
         shared_ptr<Block> getCurrentBlock() const;
         shared_ptr<Block> getNextBlock() const;
@@ -44,6 +47,9 @@ class Board {
         void setHighScore(int highScore);
         void setCell(int x, int y, bool occupied, char content = '.');
         void setCurrentLevel(shared_ptr<Level> currentLevel);
+        void setCurrentBlock(shared_ptr<Block> currentBlock);
+        void setBlind(bool blind);
+        void setHeavy(bool heavy);
 };
 
 #endif
