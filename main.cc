@@ -135,11 +135,21 @@ int main(int argc, char* argv[]) {
             game->levelDown(multiplier);
             game->render();
         } else if (command == "norandom") {
-
+            string file; 
+            cin >> file; 
+            try {
+                game->setRandom(false, file); 
+                cout << "Switched to non-random mode with file: " << filename << endl; 
+            } catch (const runtime_error &e) {
+                cerr << e.what() << endl; // handle errors with the file
+            }
+            game->render(); 
         } else if (command == "random") {
-
+            game->setRandom(true); 
+            cout << "Switched to random mode." << endl;
+            game->render(); 
         } else if (command == "sequence") {
-
+            
         } else if (command == "restart") {
             game->restart();
             game->render();

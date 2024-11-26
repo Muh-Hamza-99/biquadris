@@ -41,7 +41,7 @@ void Level3::resetLevel() { currentBlockIndex = 0; }
 
 int Level3::getLevel() const { return 3; }
 
-void Level3::setRandom() {
+void Level3::setRandom(bool random, const string& file) {
     randomize = random; 
     if (random == false) {
         blocks.clear(); // reset blocks
