@@ -4,7 +4,7 @@
 #include <utility>
 using namespace std;
 
-Board::Board(shared_ptr<Level> currentLevel, string name): currentLevel{currentLevel}, name{name} {
+Board::Board(shared_ptr<Level> currentLevel, string &name): currentLevel{currentLevel}, name{name} {
     // Prepopulating the grid with cells
     for (int y = 0; y < height; ++y) {
         vector<Cell> row;

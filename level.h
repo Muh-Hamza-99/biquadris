@@ -9,9 +9,8 @@ using namespace std;
 class Level {
     string file;
     public:
-        Level(string file);
+        Level(string &file);
         string getFile() const;
-        virtual void readFile();
         virtual shared_ptr<Block> generateBlock() = 0;
         virtual void resetLevel() = 0;
         virtual int getLevel() const = 0;

@@ -27,7 +27,7 @@ class Board {
     shared_ptr<Block> currentBlock;
     shared_ptr<Block> nextBlock;
     public:
-        Board(shared_ptr<Level> currentLevel, string name = "Player");
+        Board(shared_ptr<Level> currentLevel, string &name);
         void reset();
         void dropCurrentBlock();
         void showNewCurrentBlock();

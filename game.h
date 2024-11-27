@@ -4,7 +4,6 @@
 #include <memory>
 #include <string>
 #include "board.h"
-#include "score.h"
 #include "observer.h"
 
 using namespace std;
