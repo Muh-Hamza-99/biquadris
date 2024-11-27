@@ -8,6 +8,13 @@ Graphic::Graphic(std::shared_ptr<Game> subject)
 void Graphic::notify() {
     win.clear(); 
 
+    // level and score display
+    win.drawString(10, 20, "Level: " + std::to_string(subject->getBoard1()->getCurrentLevel()->getLevel()));
+    win.drawString(410, 20, "Level: " + std::to_string(subject->getBoard2()->getCurrentLevel()->getLevel()));
+
+    win.drawString(10, 40, "Score: " + std::to_string(subject->getBoard1()->getScore()));
+    win.drawString(410, 40, "Score: " + std::to_string(subject->getBoard2()->getScore()));
+
     // Draw Player 1's Board
     drawBoard(*subject->getBoard1(), 0);
 
@@ -26,22 +33,32 @@ void Graphic::drawBoard(const Board& board, int xOffset) {
         for (int x = 0; x < boardWidth; ++x) {
             char cellType = board.getCell(x, y).getContent();
             int color = win.cellTypeToColor(cellType);
-            if (board.getBlind() && x >= 2 && x <= 8 && y >= 2 && y <= 11) color = Xwindow::Red;
-            win.fillRectangle(xOffset + x * cellSize, y * cellSize, cellSize, cellSize, color);
+            win.fillRectangle(xOffset + x * cellSize, y * cellSize + 60, cellSize, cellSize, color); // Offset below Level/Score rows
         }
     }
 
-    // Draw the next block
+    // Draw the "Next:" label
+    win.drawString(xOffset + 10, boardHeight * cellSize + 80, "Next:");
+
+    // Draw the next block below the board
     std::vector<std::vector<char>> nextBlock = board.getNextBlock()->getDisplayBlock();
-    drawBlock(nextBlock, xOffset, boardHeight * cellSize + 10, boardWidth);
+    drawBlock(nextBlock, xOffset, boardHeight * cellSize + 100, boardWidth);
 }
+
 
 void Graphic::drawBlock(const std::vector<std::vector<char>>& block, int xOffset, int yOffset, int width) {
     for (size_t i = 0; i < block.size(); ++i) {
         for (size_t j = 0; j < block[i].size(); ++j) {
             char cellType = block[i][j];
-            int color = win.cellTypeToColor(cellType);
-            win.fillRectangle(xOffset + j * cellSize, yOffset + i * cellSize, cellSize, cellSize);
+            if (cellType != ' ') { // Skip empty cells
+                int color = win.cellTypeToColor(cellType);
+                win.fillRectangle(
+                    xOffset + j * cellSize,  // X position
+                    yOffset + i * cellSize,  // Y position
+                    cellSize, cellSize,      // Dimensions
+                    color                    // Cell color
+                );
+            }
         }
     }
 }
