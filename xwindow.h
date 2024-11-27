@@ -18,7 +18,7 @@ class Xwindow {
   ~Xwindow();                              
 
     // diff colors for diff block types
-  enum {White=0, Black, Red, Green, Blue, Yellow, Cyan, Magenta}; // Available colours.
+  enum {White=0, Black, Red, Green, Purple, Blue, Yellow, Cyan, Magenta}; // Available colours.
 
   // public getter methods
   int getWidth() const; 
