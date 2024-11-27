@@ -19,6 +19,50 @@ using namespace std;
 const int MIN_LEVEL = 0;
 const int MAX_LEVEL = 4;
 
+void commandHandler(string &command, shared_ptr<Game> game) {
+    int multiplier = 1;
+    if (isdigit(command[0])) {
+        size_t index = 0; 
+        multiplier = stoi(command, &index); 
+        command = command.substr(index);
+    }
+
+    if (command.substr(0, 3) == "lef") { // left
+        game->left(multiplier);
+        game->render();
+    } else if (command.substr(0, 2) == "ri") { // right
+        game->right(multiplier);
+        game->render();
+    } else if (command.substr(0, 3) == "dow") { // down
+        game->down(multiplier);
+        game->render();
+    } else if (command.substr(0, 3) == "clo") { // clockwise
+        game->rotatecw(multiplier);
+        game->render();
+    } else if (command.substr(0, 3) == "cou") { // counterclockwise
+        game->rotateccw(multiplier);
+        game->render();
+    } else if (command.substr(0, 3) == "dro") { // drop
+        game->drop();
+        game->render();     
+    } else if (command.substr(0, 6) == "levelu") { // levelup
+        game->levelUp(multiplier);
+        game->render();
+    } else if (command.substr(0, 6) == "leveld") { // leveldown
+        game->levelDown(multiplier);
+        game->render();
+    } else if (command == "random") {
+        game->setRandom(true); 
+        cout << "Switched to random mode." << endl;
+        game->render(); 
+    }  else if (command == "restart") {
+        game->restart();
+        game->render();
+    } else {
+        cout << "Invalid command. Please input a valid command." << endl;
+    }
+}
+
 int main(int argc, char* argv[]) {
     bool graphics = true;
     int startLevel = 0;
@@ -107,114 +151,24 @@ int main(int argc, char* argv[]) {
         }
 
         string command;
-        int multiplier = 1;
         cin >> command;
-        if (command.substr(0, 1) >= "0" && command.substr(0, 1) <= "9") {
-            istringstream iss { command };
-            iss >> multiplier;
-            command = command.substr(1);
-        }
-
-        if (command.substr(0, 3) == "lef") { // left
-            game->left(multiplier);
-            game->render();
-        } else if (command.substr(0, 2) == "ri") { // right
-            game->right(multiplier);
-            game->render();
-        } else if (command.substr(0, 3) == "dow") { // down
-            game->down(multiplier);
-            game->render();
-        } else if (command.substr(0, 3) == "clo") { // clockwise
-            game->rotatecw(multiplier);
-            game->render();
-        } else if (command.substr(0, 3) == "cou") { // counterclockwise
-            game->rotateccw(multiplier);
-            game->render();
-        } else if (command.substr(0, 3) == "dro") { // drop
-            game->drop();
-            game->render();            
-        } else if (command.substr(0, 6) == "levelu") { // levelup
-            game->levelUp(multiplier);
-            game->render();
-        } else if (command.substr(0, 6) == "leveld") { // leveldown
-            game->levelDown(multiplier);
-            game->render();
-        } else if (command == "norandom") {
-            string file; 
-            cin >> file; 
-            try {
-                game->setRandom(false, file); 
-                cout << "Switched to non-random mode with file: " << file << endl; 
-            } catch (const runtime_error &e) {
-                cerr << e.what() << endl; // handle errors with the file
-            }
-            game->render(); 
-        } else if (command == "random") {
-            game->setRandom(true); 
-            cout << "Switched to random mode." << endl;
-            game->render(); 
-        } else if (command == "sequence") {
+        if (command == "sequence") {
             string file; 
             cin >> file; 
             ifstream sequenceFile { file }; 
             if (!sequenceFile) {
-                cerr << "Can not open sequence file: " << file << endl; 
-            } else {
-                string line; 
-                while (getline(sequenceFile, line)) {
-                    istringstream iss(line); 
-                    string seqCommand; 
-                    while (iss >> seqCommand) {
-                        int seqMultiplier = 1; 
-                        if (isdigit(seqCommand[0])) {
-                            size_t idx = 0; 
-                            seqMultiplier = stoi(seqCommand, &idx); 
-                            seqCommand = seqCommand.substr(idx); 
-                        }
-                        for (int i = 0; i < seqMultiplier; ++i) {
-                            if (seqCommand.substr(0, 3) == "lef") {
-                                game->left(1);
-                            } else if (seqCommand.substr(0, 2) == "ri") {
-                                game->right(1);
-                            } else if (seqCommand.substr(0, 3) == "dow") {
-                                game->down(1);
-                            } else if (seqCommand.substr(0, 3) == "clo") {
-                                game->rotatecw(1);
-                            } else if (seqCommand.substr(0, 3) == "cou") {
-                                game->rotateccw(1);
-                            } else if (seqCommand.substr(0, 3) == "dro") {
-                                game->drop();
-                            } else if (seqCommand.substr(0, 6) == "levelu") {
-                                game->levelUp(1);
-                            } else if (seqCommand.substr(0, 6) == "leveld") {
-                                game->levelDown(1);
-                            } else if (seqCommand == "random") {
-                                game->setRandom(true);
-                            } else if (seqCommand == "norandom") {
-                                string fileIn;
-                                iss >> fileIn;
-                                try {
-                                    game->setRandom(false, fileIn);
-                                } catch (const runtime_error &e) {
-                                    cerr << e.what() << endl;
-                                }
-                            } else if (seqCommand == "restart") {
-                                game->restart();
-                            } else {
-                                cerr << "Invalid command in sequence: " << seqCommand << endl;
-                            }
-                        }
-                    }
-                }
-                game->render();
+                cerr << "Can not open sequence file: " << file << endl;
+                continue;
             }
-        } else if (command == "restart") {
-            game->restart();
-            game->render();
+            string sequenceCommand; 
+            while (sequenceFile >> sequenceCommand) {
+                if (sequenceCommand == "quit") return 0;
+                commandHandler(sequenceCommand, game);
+            }
         } else if (command == "quit") {
-            break;
+            return 0;
         } else {
-            cout << "Invalid command. Please input a valid command." << endl;
+            commandHandler(command, game);
         }
 
         if (board1->isOver() || board2->isOver()) {
