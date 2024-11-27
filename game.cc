@@ -195,6 +195,40 @@ void Game::drop() {
       otherBoard->force(block);
     }
   }
+
+  // Level 4 constructive block
+  if (currentBoard->getCurrentLevel()->getLevel() == 4 && currentBoard->getPlacedBlocks() % 5 == 0 && currentBoard->getRowsCleared() == 0) {
+    shared_ptr<Block> constructiveBlock = make_shared<AsterikBlock>(4);
+    shared_ptr<Block> tempCurrentBlock = currentBoard->getCurrentBlock();
+    currentBoard->setCurrentBlock(constructiveBlock);
+
+    vector<pair<int, int>> previousCurrentBlockCoords = currentBoard->getCurrentBlock()->getCoords();
+    vector<pair<int, int>> currentCurrentBlockCoords = currentBoard->getCurrentBlock()->getCoords();
+    while (true) {
+      down();
+      previousCurrentBlockCoords = currentCurrentBlockCoords;
+      currentCurrentBlockCoords = currentBoard->getCurrentBlock()->getCoords();
+      bool sameCoords = true;
+      for (int i = 0; i < static_cast<int>(currentCurrentBlockCoords.size()); i++) {
+        if (currentCurrentBlockCoords[i].first != previousCurrentBlockCoords[i].first ||
+            currentCurrentBlockCoords[i].second != previousCurrentBlockCoords[i].second) {
+          sameCoords = false;
+        }
+      }
+      if (sameCoords) {
+        break;
+      } else {
+        continue;
+      }
+    }
+
+    currentBoard->dropCurrentBlock();
+    currentBoard->clearFullRows();
+    currentBoard->setCurrentBlock(tempCurrentBlock);
+    currentBoard->resetRowsCleared();
+  } else if (currentBoard->getPlacedBlocks() % 5 == 0) {
+    currentBoard->resetRowsCleared();
+  }
   
   currentBoard->showNewCurrentBlock();
   currentBoard->setBlind(false);

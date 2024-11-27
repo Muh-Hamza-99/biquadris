@@ -18,6 +18,8 @@ class Board {
     bool over = false;
     bool blind = false;
     bool heavy = false;
+    int rowsCleared = 0;
+    int placedBlocks = 0;
     string name;
     vector<vector<Cell>> grid;
     vector<shared_ptr<Block>> blocks;
@@ -42,6 +44,8 @@ class Board {
         bool isOver() const;
         bool getBlind() const;
         bool getHeavy() const;
+        int getRowsCleared() const;
+        int getPlacedBlocks() const;
         shared_ptr<Level> getCurrentLevel() const;
         shared_ptr<Block> getCurrentBlock() const;
         shared_ptr<Block> getNextBlock() const;
@@ -53,6 +57,7 @@ class Board {
         void setCurrentBlock(shared_ptr<Block> currentBlock);
         void setBlind(bool blind);
         void setHeavy(bool heavy);
+        void resetRowsCleared();
 };
 
 #endif

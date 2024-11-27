@@ -29,6 +29,8 @@ void Board::reset() {
     blocks.clear();
     score = 0;
     over = false;
+    rowsCleared = 0;
+    placedBlocks = 0;
     for (int y = 0; y < height; ++y) {
         vector<Cell> row;
         grid.emplace_back(row);
@@ -65,6 +67,7 @@ void Board::showNewCurrentBlock() {
 
 void Board::dropCurrentBlock() {
     blocks.emplace_back(currentBlock);
+    placedBlocks += 1;
     currentBlock = nextBlock;
     nextBlock = currentLevel->generateBlock();
 }
@@ -131,6 +134,7 @@ int Board::clearFullRows() {
         }
     }
 
+    rowsCleared += cleared;
     if (score > highScore) highScore = score;
 
     return cleared;
@@ -174,6 +178,8 @@ int Board::getHighScore() const { return highScore; }
 bool Board::isOver() const { return over; }
 bool Board::getBlind() const { return blind; }
 bool Board::getHeavy() const { return heavy; }
+int Board::getRowsCleared() const { return rowsCleared; }
+int Board::getPlacedBlocks() const { return placedBlocks; }
 shared_ptr<Level> Board::getCurrentLevel() const { return currentLevel; }
 shared_ptr<Block> Board::getCurrentBlock() const { return currentBlock; }
 shared_ptr<Block> Board::getNextBlock() const { return nextBlock; }
@@ -188,3 +194,4 @@ void Board::setCurrentLevel(shared_ptr<Level> currentLevel) { this->currentLevel
 void Board::setCurrentBlock(shared_ptr<Block> currentBlock) { this->currentBlock = currentBlock; }
 void Board::setBlind(bool blind) { this->blind = blind; }
 void Board::setHeavy(bool heavy) { this->heavy = heavy; }
+void Board::resetRowsCleared() { rowsCleared = 0; }
