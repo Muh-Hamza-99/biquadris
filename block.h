@@ -14,8 +14,6 @@ class Block {
         int generatedLevel;
     public:
         Block(int generatedLevel, bool heavy = false);
-        Block(const Block &other);
-        Block(Block &&other);
         void left();
         void right();
         void down();
@@ -24,7 +22,6 @@ class Block {
         vector<vector<char>> getDisplayBlock() const;
         int getGeneratedLevel() const;
         bool getHeavy() const;
-        void setHeavy(bool heavy);
         void removeCoord(pair<int, int> coord);
         virtual ~Block();
         virtual char getType() const = 0;

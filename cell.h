@@ -11,8 +11,6 @@ class Cell {
         int getY() const;
         bool getOccupied() const;
         char getContent() const;
-        void setX(int x);
-        void setY(int y);
         void setOccupied(bool occupied);
         void setContent(char content);
 };

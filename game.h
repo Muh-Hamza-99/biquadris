@@ -4,8 +4,6 @@
 #include <memory>
 #include <string>
 #include "board.h"
-#include "score.h"
-#include "commandinterpreter.h"
 #include "observer.h"
 
 using namespace std;
@@ -13,7 +11,6 @@ using namespace std;
 class Game : public Subject {
     shared_ptr<Board> board1;
     shared_ptr<Board> board2;
-    shared_ptr<CommandInterpreter> commandInterpreter;
     bool player1Turn = true;
     public:
         Game(shared_ptr<Board> board1, shared_ptr<Board> board2);
