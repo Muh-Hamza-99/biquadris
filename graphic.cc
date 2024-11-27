@@ -26,6 +26,7 @@ void Graphic::drawBoard(const Board& board, int xOffset) {
         for (int x = 0; x < boardWidth; ++x) {
             char cellType = board.getCell(x, y).getContent();
             int color = win.cellTypeToColor(cellType);
+            if (board.getBlind() && x >= 2 && x <= 8 && y >= 2 && y <= 11) color = Xwindow::Red;
             win.fillRectangle(xOffset + x * cellSize, y * cellSize, cellSize, cellSize, color);
         }
     }
