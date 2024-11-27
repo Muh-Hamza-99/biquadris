@@ -183,9 +183,6 @@ int Board::getPlacedBlocks() const { return placedBlocks; }
 shared_ptr<Level> Board::getCurrentLevel() const { return currentLevel; }
 shared_ptr<Block> Board::getCurrentBlock() const { return currentBlock; }
 shared_ptr<Block> Board::getNextBlock() const { return nextBlock; }
-void Board::setName(const string &name) { this->name = name; }
-void Board::setScore(int score) { this->score = score; }
-void Board::setHighScore(int highScore) { this->highScore = highScore; }
 void Board::setCell(int x, int y, bool occupied, char content) {
     grid[y][x].setOccupied(occupied);
     grid[y][x].setContent(content);

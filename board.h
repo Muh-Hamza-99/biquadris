@@ -49,9 +49,6 @@ class Board {
         shared_ptr<Level> getCurrentLevel() const;
         shared_ptr<Block> getCurrentBlock() const;
         shared_ptr<Block> getNextBlock() const;
-        void setName(const string &name);
-        void setScore(int score);
-        void setHighScore(int highScore);
         void setCell(int x, int y, bool occupied, char content = '.');
         void setCurrentLevel(shared_ptr<Level> currentLevel);
         void setCurrentBlock(shared_ptr<Block> currentBlock);

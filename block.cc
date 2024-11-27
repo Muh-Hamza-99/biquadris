@@ -4,8 +4,6 @@
 // BLOCK
 
 Block::Block(int generatedLevel, bool heavy): generatedLevel{generatedLevel}, heavy{heavy} {}
-Block::Block(const Block &other): generatedLevel{other.generatedLevel}, heavy{other.heavy}, coords{other.coords} {}
-Block::Block(Block &&other): generatedLevel{other.generatedLevel}, heavy{other.heavy}, coords{other.coords} {}
 
 Block::~Block() {}
 
@@ -29,7 +27,6 @@ vector<pair<int, int>> Block::getCoords() const { return coords; }
 vector<vector<char>> Block::getDisplayBlock() const { return displayBlock; } 
 int Block::getGeneratedLevel() const { return generatedLevel; }
 bool Block::getHeavy() const { return heavy; }
-void Block::setHeavy(bool heavy) { this->heavy = heavy; }
 void Block::removeCoord(pair<int, int> coord) {
     for (vector<pair<int, int>>::iterator it = coords.begin(); it != coords.end();) {
         if (it->first == coord.first && it->second == coord.second) {
