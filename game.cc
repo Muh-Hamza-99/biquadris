@@ -282,13 +282,6 @@ void Game::levelDown(int repetitions) {
 shared_ptr<Board> Game::getBoard1() const { return board1; }
 shared_ptr<Board> Game::getBoard2() const { return board2; }
 
-void Game::startGame() {
-  board1->reset();
-  board2->reset();
-  player1Turn = true;
-  render();
-}
-
 void Game::restart() {
   board1->reset();
   board2->reset();
