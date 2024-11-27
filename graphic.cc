@@ -39,8 +39,16 @@ void Graphic::drawBlock(const std::vector<std::vector<char>>& block, int xOffset
     for (size_t i = 0; i < block.size(); ++i) {
         for (size_t j = 0; j < block[i].size(); ++j) {
             char cellType = block[i][j];
-            int color = win.cellTypeToColor(cellType);
-            win.fillRectangle(xOffset + j * cellSize, yOffset + i * cellSize, cellSize, cellSize);
+            if (cellType != ' ') {
+                int color = win.cellTypeToColor(cellType);
+                win.fillRectangle(
+                    xOffset + j * cellSize,  
+                    yOffset + i * cellSize, 
+                    cellSize, cellSize,      
+                    color                   
+                );
+            }
         }
     }
 }
+
