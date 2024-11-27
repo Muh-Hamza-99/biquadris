@@ -9,7 +9,7 @@ EXEC = biquadris
 
 .PHONY : clean
 ${EXEC} : ${OBJECTS}
-	${CXX} ${CXXFLAGS} $^ -o $@
+	${CXX} ${CXXFLAGS} $^ -o $@ -lX11
 
 # ${CXX} ${CXXFLAGS} $^ -o $@ -lX11 with graphics
 

@@ -13,20 +13,21 @@
 #include "level4.h"
 #include "text.h"
 #include "graphic.h"
+#include "xwindow.h"
 using namespace std;
 
 const int MIN_LEVEL = 0;
 const int MAX_LEVEL = 4;
 
 int main(int argc, char* argv[]) {
-    bool graphics = false;
+    bool graphics = true;
     int startLevel = 0;
     string scriptFile1 = "sequence1.txt";
     string scriptFile2 = "sequence2.txt";
     for (int i = 1; i < argc; ++i) {
         string arg { argv[i] };
         if (arg == "-text") {
-            graphics = true;
+            graphics = false;
         } else if (arg == "-startlevel") {
             ++i;
             string arg2 { argv[i] };
