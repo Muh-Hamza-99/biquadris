@@ -8,6 +8,8 @@ Graphic::Graphic(std::shared_ptr<Game> subject)
 void Graphic::notify() {
     win.clear(); 
 
+    win.setColor(Xwindow::Black);
+
     // level and score display
     win.drawString(10, 20, "Level: " + std::to_string(subject->getBoard1()->getCurrentLevel()->getLevel()));
     win.drawString(410, 20, "Level: " + std::to_string(subject->getBoard2()->getCurrentLevel()->getLevel()));

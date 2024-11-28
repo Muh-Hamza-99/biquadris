@@ -21,8 +21,8 @@ Xwindow::Xwindow(int width, int height): width{width}, height{height} {
     XColor xcolour;
     Colormap cmap = DefaultColormap(d, DefaultScreen(d));
 
-    const char* colorNames[] = {"white", "black", "red", "green", "purple", "blue", "yellow", "cyan", "magenta"};
-    for (int i = 0; i < 8; ++i) {
+    const char* colorNames[] = {"white", "black", "red", "green", "purple", "blue", "yellow", "cyan", "magenta", "orange"};
+    for (int i = 0; i < 9; ++i) {
         XParseColor(d, cmap, colorNames[i], &xcolour);
         XAllocColor(d, cmap, &xcolour);
         colours[i] = xcolour.pixel;
@@ -61,7 +61,7 @@ int Xwindow::cellTypeToColor(char cellType) const {
         case 'O': return Purple;
         case 'S': return Green;
         case 'T': return Magenta;
-        case 'Z': return White;
+        case 'Z': return Orange;
         case '*': return Red;
         case ' ': return Black; // Empty cell
         default:  return Black; // Default color for unknown cell types
