@@ -18,15 +18,14 @@ class Game : public Subject {
         void left(int repetitions = 1);
         void right(int repetitions = 1);
         void down(int repetitions = 1);
-        void rotatecw(int repetitions);
-        void rotateccw(int repetitions);
+        void rotatecw(int repetitions = 1);
+        void rotateccw(int repetitions = 1);
         void drop();
         void levelUp(int repetitions = 1);
         void levelDown(int repetitions = 1);
         shared_ptr<Board> getBoard1() const;
         shared_ptr<Board> getBoard2() const;
         bool checkPlayer1Turn() const;
-        void startGame();
         void restart(); 
         void setRandom(bool random, const string &file = ""); 
 };
