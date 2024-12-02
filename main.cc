@@ -151,7 +151,11 @@ int main(int argc, char* argv[]) {
         }
 
         string command;
-        cin >> command;
+        if (!(cin >> command)) {  // Check for EOF or input failure
+            cout << "\nEnd of input detected. Exiting game.\n";
+            break;
+        }
+        
         if (command == "sequence") {
             string file; 
             cin >> file; 
